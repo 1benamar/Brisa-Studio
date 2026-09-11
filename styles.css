@@ -666,9 +666,9 @@ em { font-style: italic; }
 .quotes { display: grid; gap: 1rem; }
 .quote { display: grid; gap: 1.4rem; align-content: space-between; }
 .quote blockquote {
-  font-family: var(--serif); font-style: italic;
-  font-size: clamp(1.1rem, 1.7vw, 1.3rem);
-  line-height: 1.5; color: var(--cream);
+  font-family: var(--sans); font-style: normal; font-weight: 300;
+  font-size: 0.96rem;
+  line-height: 1.7; color: var(--cream);
   position: relative;
   padding-top: 1.8rem;
 }
