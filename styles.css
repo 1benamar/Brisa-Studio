@@ -881,7 +881,8 @@ em { font-style: italic; }
   margin-top: clamp(2.5rem, 5vw, 4rem);
   padding-top: 1.6rem;
   border-top: 1px solid var(--line-soft);
-  display: grid; gap: 0.5rem;
+  display: flex; flex-wrap: wrap; justify-content: space-between;
+  gap: 0.5rem 1.5rem;
   font-size: 0.75rem; color: var(--cream-3);
 }
 .footer-credits a { color: var(--cream-2); }
@@ -940,7 +941,7 @@ em { font-style: italic; }
 @media (min-width: 540px) {
   .services { grid-template-columns: repeat(2, 1fr); }
   .gallery { grid-auto-rows: 30vw; }
-  .footer-legal { grid-template-columns: 1fr auto; align-items: center; }
+  .footer-legal { align-items: center; }
 }
 
 @media (min-width: 720px) {
