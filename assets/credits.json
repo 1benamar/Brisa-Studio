@@ -1,0 +1,90 @@
+{
+  "hero": {
+    "src": "assets/img/hero.jpg",
+    "title": "Tattoo Tattoo Artist Body Drawing Edited 2020",
+    "creator": "chimpwithcan",
+    "creator_url": "https://www.flickr.com/photos/188454520@N02",
+    "license": "by",
+    "license_version": "2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "foreign_landing_url": "https://www.flickr.com/photos/188454520@N02/49902338586",
+    "source": "flickr"
+  },
+  "about": {
+    "src": "assets/img/about.jpg",
+    "title": "Tattoo Studio",
+    "creator": "geishaboy500",
+    "creator_url": "https://www.flickr.com/photos/49503154413@N01",
+    "license": "by",
+    "license_version": "2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "foreign_landing_url": "https://www.flickr.com/photos/49503154413@N01/2348513788",
+    "source": "flickr"
+  },
+  "service-tradicional": {
+    "src": "assets/img/service-tradicional.jpg",
+    "title": "Flash Art",
+    "creator": "Tobyotter",
+    "creator_url": "https://www.flickr.com/photos/78428166@N00",
+    "license": "by",
+    "license_version": "2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "foreign_landing_url": "https://www.flickr.com/photos/78428166@N00/13096214233",
+    "source": "flickr"
+  },
+  "gallery-1": {
+    "src": "assets/img/gallery-1.jpg",
+    "title": "Flower tattoo designs",
+    "creator": "tattoodesign555",
+    "creator_url": "https://www.flickr.com/photos/152809520@N04",
+    "license": "pdm",
+    "license_version": "1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "foreign_landing_url": "https://www.flickr.com/photos/152809520@N04/37912935404",
+    "source": "flickr"
+  },
+  "gallery-2": {
+    "src": "assets/img/gallery-2.jpg",
+    "title": "sleeve",
+    "creator": "Stiller Beobachter",
+    "creator_url": "https://www.flickr.com/photos/56091199@N03",
+    "license": "by",
+    "license_version": "2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "foreign_landing_url": "https://www.flickr.com/photos/56091199@N03/15075514887",
+    "source": "flickr"
+  },
+  "gallery-4": {
+    "src": "assets/img/gallery-4.jpg",
+    "title": "Rose flower clipart, Valentine's illustration",
+    "creator": "Rawpixel",
+    "creator_url": "https://www.rawpixel.com",
+    "license": "cc0",
+    "license_version": "1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "foreign_landing_url": "https://www.rawpixel.com/image/6480593/image-flower-public-domain-rose",
+    "source": "rawpixel"
+  },
+  "gallery-7": {
+    "src": "assets/img/gallery-7.jpg",
+    "title": "Back tattoo",
+    "creator": "The Pug Father",
+    "creator_url": "https://www.flickr.com/photos/76929828@N00",
+    "license": "by",
+    "license_version": "2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "foreign_landing_url": "https://www.flickr.com/photos/76929828@N00/3929155540",
+    "source": "flickr"
+  },
+  "gallery-8": {
+    "src": "assets/img/gallery-8.jpg",
+    "title": "Tattooed Leg",
+    "creator": "Carrie Capri",
+    "creator_url": "https://www.flickr.com/photos/145856291@N08",
+    "license": "pdm",
+    "license_version": "1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "foreign_landing_url": "https://www.flickr.com/photos/145856291@N08/52386040660",
+    "source": "flickr"
+  }
+}

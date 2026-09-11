@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Al tener el dominio, descomenta la línea siguiente con la dirección real:
+# Sitemap: https://tudominio.com/sitemap.xml

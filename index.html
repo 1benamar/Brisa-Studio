@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brisa Tattoo Studio · Tatuajes, piercing y micropigmentación en Girona</title>
+  <meta name="description" content="Estudio de tatuaje en Girona especializado en realismo, blackwork, fine line y tradicional. También piercing, micropigmentación y eliminación láser. Carrer Dr. Antic Roca, 20." />
+  <meta name="theme-color" content="#130F11" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Brisa Tattoo Studio · Girona" />
+  <meta property="og:description" content="Tatuajes a medida, piercing, micropigmentación y eliminación láser en el centro de Girona." />
+  <meta property="og:image" content="assets/img/hero.jpg" />
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" as="image" href="assets/img/hero.jpg" fetchpriority="high" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" />
+
+  <link rel="stylesheet" href="styles.css?v=20260911" />
+
+  <!-- Marca que hay JS: sin él, el contenido se muestra sin animaciones de entrada -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <!-- Ficha de negocio local para Google. Añade "url" con el dominio al publicar. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TattooParlor",
+    "name": "Brisa Tattoo Studio",
+    "description": "Estudio de tatuaje, piercing y micropigmentación en Girona. Realismo, blackwork, fine line, tradicional y eliminación láser.",
+    "image": "assets/img/hero.jpg",
+    "telephone": "+34695717519",
+    "priceRange": "€€",
+    "currenciesAccepted": "EUR",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Carrer Dr. Antic Roca, 20",
+      "postalCode": "17003",
+      "addressLocality": "Girona",
+      "addressRegion": "Girona",
+      "addressCountry": "ES"
+    },
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "11:00",
+      "closes": "19:00"
+    }],
+    "sameAs": ["https://www.instagram.com/brisa.tattoostudio"]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <!-- Splash -->
+  <div class="splash" data-splash aria-hidden="true">
+    <div class="splash-inner">
+      <svg class="mark mark-splash" viewBox="0 0 120 150" fill="none" aria-hidden="true">
+        <path d="M60 22c-9 4-13.5 12-9.5 19.5C54 48.5 62 50.5 65 47c3-3.5.5-9.5-4.5-11" />
+        <path d="M60 22c9 4 13.5 12 9.5 19.5C66 48.5 58 50.5 55 47c-3-3.5-.5-9.5 4.5-11" />
+        <path d="M43 33c-8 7-9 18-2 25 5 5 13 5 16 1" />
+        <path d="M77 33c8 7 9 18 2 25-5 5-13 5-16 1" />
+        <path d="M60 60v70" />
+        <path d="M60 84c-7-6-16-6-22-1 4 8 14 11 22 6" />
+        <path d="M60 102c7-6 16-6 22-1-4 8-14 11-22 6" />
+      </svg>
+      <span class="splash-word">Brisa</span>
+    </div>
+  </div>
+
+  <!-- Custom cursor -->
+  <div class="cursor" data-cursor-root aria-hidden="true">
+    <span class="cursor-dot"></span>
+    <span class="cursor-ring"></span>
+  </div>
+
+  <!-- Nav -->
+  <header class="nav" data-nav>
+    <div class="nav-inner">
+      <a class="nav-brand" href="#inicio">
+        <span class="nav-brand-name">Brisa</span>
+        <span class="nav-brand-sub">Tattoo Studio</span>
+      </a>
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a class="nav-link" href="#estudio">Estudio</a>
+        <a class="nav-link" href="#servicios">Servicios</a>
+        <a class="nav-link" href="#portfolio">Portfolio</a>
+        <a class="nav-link" href="#artistas">Artistas</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-sm" href="#contacto">Reservar cita</a>
+        <button class="nav-burger" type="button" data-burger aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-movil">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile menu -->
+  <div class="nav-mobile" id="menu-movil" data-mobile-menu aria-hidden="true">
+    <nav aria-label="Navegación móvil">
+      <a href="#estudio">Estudio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#artistas">Artistas</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#contacto">Reservar cita</a>
+    </nav>
+    <div class="nav-mobile-foot">
+      <a href="https://www.instagram.com/brisa.tattoostudio" target="_blank" rel="noopener">@brisa.tattoostudio</a>
+      <a href="tel:+34695717519">695 71 75 19</a>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="inicio">
+      <div class="hero-bg">
+        <img src="assets/img/hero.jpg" alt="Manos colocando el diseño de un tatuaje sobre la piel" fetchpriority="high" loading="eager" />
+        <div class="hero-bg-tint" aria-hidden="true"></div>
+      </div>
+      <div class="hero-mesh" aria-hidden="true"></div>
+      <div class="hero-grain" aria-hidden="true"></div>
+
+      <div class="hero-inner">
+        <p class="kicker">Estudio de tatuaje · Girona</p>
+
+        <svg class="mark mark-hero" viewBox="0 0 120 150" fill="none" aria-hidden="true" data-draw>
+          <path d="M60 22c-9 4-13.5 12-9.5 19.5C54 48.5 62 50.5 65 47c3-3.5.5-9.5-4.5-11" />
+          <path d="M60 22c9 4 13.5 12 9.5 19.5C66 48.5 58 50.5 55 47c-3-3.5-.5-9.5 4.5-11" />
+          <path d="M43 33c-8 7-9 18-2 25 5 5 13 5 16 1" />
+          <path d="M77 33c8 7 9 18 2 25-5 5-13 5-16 1" />
+          <path d="M60 60v70" />
+          <path d="M60 84c-7-6-16-6-22-1 4 8 14 11 22 6" />
+          <path d="M60 102c7-6 16-6 22-1-4 8-14 11-22 6" />
+        </svg>
+
+        <h1 class="hero-title" data-split="words">
+          Cada piel es un lienzo distinto.<br />
+          <em>Cada trazo, una decisión.</em>
+        </h1>
+
+        <p class="hero-sub">
+          Tatuaje, piercing y micropigmentación en el centro de Girona. Diseño propio,
+          material certificado y un espacio tranquilo donde nadie tiene prisa.
+        </p>
+
+        <div class="hero-foot">
+          <p class="hero-meta">
+            <span class="hero-dot" aria-hidden="true"></span>
+            Carrer Dr. Antic Roca, 20 · Lunes a sábado, 11:00–19:00
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contacto">Reservar cita</a>
+            <a class="btn btn-ghost" href="#portfolio">Ver portfolio</a>
+          </div>
+        </div>
+      </div>
+
+      <a class="hero-scroll" href="#estudio" aria-label="Bajar a la siguiente sección">
+        <span></span>
+      </a>
+    </section>
+
+    <!-- ============ ESTUDIO ============ -->
+    <section class="section section-about" id="estudio">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="kicker">01 · El estudio</p>
+          <h2 class="section-title">
+            Un sitio pequeño donde el tiempo <em>se dedica a la pieza</em>.
+          </h2>
+        </header>
+
+        <div class="about-lead" data-reveal>
+          <p>
+            Brisa nació con una idea sencilla: que tatuarse no tenga nada de intimidante.
+            Trabajamos con cita cerrada y una sola persona por sesión, así que el estudio
+            nunca va lleno ni con ruido de fondo.
+          </p>
+          <p>
+            Antes de coger la máquina hablamos: qué te gusta, qué no, qué zona del cuerpo y
+            cómo va a envejecer el diseño con los años. El boceto se dibuja para ti y no se
+            repite en nadie más.
+          </p>
+        </div>
+
+        <figure class="about-figure" data-reveal>
+          <img src="assets/img/about.jpg" alt="Manos con guantes tatuando un antebrazo con el estencil aún visible" loading="lazy" decoding="async" />
+          <figcaption>Guantes nuevos, agujas nuevas y el estencil revisado antes de la primera línea.</figcaption>
+        </figure>
+
+        <div class="pillars">
+          <article class="pillar" data-reveal>
+            <span class="pillar-num">i</span>
+            <h3>Higiene sin atajos</h3>
+            <p>
+              Agujas y tubos de un solo uso, autoclave para el resto del material y superficies
+              desinfectadas entre sesión y sesión. Puedes verlo abrir todo delante de ti.
+            </p>
+          </article>
+          <article class="pillar" data-reveal>
+            <span class="pillar-num">ii</span>
+            <h3>Diseño a medida</h3>
+            <p>
+              No trabajamos con catálogos cerrados. Cada pieza se dibuja después de hablar
+              contigo y se ajusta hasta que la sientas tuya.
+            </p>
+          </article>
+          <article class="pillar" data-reveal>
+            <span class="pillar-num">iii</span>
+            <h3>Antes y después</h3>
+            <p>
+              La sesión es una parte. Te acompañamos en la cicatrización con una guía de
+              cuidados y seguimiento por WhatsApp hasta la revisión del mes.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SERVICIOS ============ -->
+    <section class="section section-services" id="servicios">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="kicker">02 · Servicios</p>
+          <h2 class="section-title">Lo que hacemos, <em>y cómo lo hacemos</em>.</h2>
+          <p class="section-intro">
+            Cuatro estilos de tatuaje, más piercing, micropigmentación y eliminación láser.
+            Los precios son orientativos: el presupuesto final se cierra en la consulta.
+          </p>
+        </header>
+
+        <div class="services">
+          <article class="card service" data-reveal data-tilt>
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none"><path d="M16 4c4 6 7 9.5 7 14a7 7 0 0 1-14 0c0-4.5 3-8 7-14Z"/><path d="M16 17.5a4 4 0 0 0 4 4"/></svg>
+            </span>
+            <h3>Realismo</h3>
+            <p>Retratos, animales y detalle fotográfico en negro y grises o color, con sombras trabajadas capa a capa.</p>
+            <p class="service-price">Desde 90 € / hora</p>
+          </article>
+
+          <article class="card service" data-reveal data-tilt>
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none"><path d="M6 24 16 6l10 18Z"/><path d="M11 24h10"/></svg>
+            </span>
+            <h3>Blackwork</h3>
+            <p>Tinta sólida, contraste y geometría. Piezas con peso gráfico que se leen bien de lejos y aguantan el tiempo.</p>
+            <p class="service-price">Desde 80 € / hora</p>
+          </article>
+
+          <article class="card service" data-reveal data-tilt>
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none"><path d="M4 22c6-10 10-14 24-14"/><path d="M4 26c5-4 9-6 14-6"/></svg>
+            </span>
+            <h3>Fine line</h3>
+            <p>Trazo fino y limpio para piezas pequeñas, escritura y botánica delicada. Discreto, pero nunca frágil.</p>
+            <p class="service-price">Desde 70 €</p>
+          </article>
+
+          <article class="card service" data-reveal data-tilt>
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none"><path d="M16 4v24"/><path d="M9 11h14"/><path d="M16 28c-5-3-7-7-7-11"/><path d="M16 28c5-3 7-7 7-11"/></svg>
+            </span>
+            <h3>Tradicional</h3>
+            <p>Línea gruesa, color plano y motivos clásicos: rosas, golondrinas, daggers. Estilo que no pasa de moda.</p>
+            <p class="service-price">Desde 75 € / hora</p>
+          </article>
+
+          <article class="card service" data-reveal data-tilt>
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="18" r="9"/><circle cx="16" cy="7" r="2.5"/><path d="M16 9.5v-.5"/></svg>
+            </span>
+            <h3>Piercing</h3>
+            <p>Perforación con aguja, joyería de titanio implantable y explicación de cuidados antes de salir por la puerta.</p>
+            <p class="service-price">Desde 25 € · joya incluida</p>
+          </article>
+
+          <article class="card service" data-reveal data-tilt>
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none"><path d="M4 18c4-7 10-10 24-8"/><path d="M7 24c4-4 9-5 18-4"/><path d="M22 8l3-3"/></svg>
+            </span>
+            <h3>Micropigmentación</h3>
+            <p>Cejas pelo a pelo, labios y camuflaje de cicatrices con pigmentos de larga duración y retoque incluido.</p>
+            <p class="service-price">Desde 120 € · retoque incluido</p>
+          </article>
+
+          <article class="card service" data-reveal data-tilt>
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none"><path d="M16 3v9"/><path d="M9 6l3 6"/><path d="M23 6l-3 6"/><path d="M11 15h10l-2 14h-6Z"/></svg>
+            </span>
+            <h3>Eliminación láser</h3>
+            <p>Borrado y aclarado de tatuajes con láser Q-switched, por sesiones espaciadas y con valoración previa gratuita.</p>
+            <p class="service-price">Valoración gratuita</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PORTFOLIO ============ -->
+    <section class="section section-portfolio" id="portfolio">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="kicker">03 · Portfolio</p>
+          <h2 class="section-title">Piezas recientes <em>del estudio</em>.</h2>
+          <p class="section-intro">
+            Una selección de estilos. En Instagram publicamos el trabajo del día a día,
+            incluidos los procesos y los diseños disponibles.
+          </p>
+        </header>
+      </div>
+
+      <div class="gallery" data-gallery>
+        <figure class="gallery-item gallery-tall" data-reveal>
+          <img src="assets/img/gallery-7.jpg" alt="Tatuaje de espalda completa con linework en negro" loading="lazy" decoding="async" />
+          <figcaption><span>Blackwork</span> Espalda completa, linework</figcaption>
+        </figure>
+        <figure class="gallery-item gallery-tall" data-reveal>
+          <img src="assets/img/gallery-8.jpg" alt="Pierna tatuada al completo en estilo tradicional a color" loading="lazy" decoding="async" />
+          <figcaption><span>Tradicional</span> Pierna completa en color</figcaption>
+        </figure>
+        <figure class="gallery-item" data-reveal>
+          <img src="assets/img/gallery-1.jpg" alt="Tatuaje floral pequeño en el pie" loading="lazy" decoding="async" />
+          <figcaption><span>Color</span> Floral en el pie</figcaption>
+        </figure>
+        <figure class="gallery-item gallery-ink" data-reveal>
+          <img src="assets/img/gallery-4.jpg" alt="Boceto de rosa dibujado a mano para tatuaje" loading="lazy" decoding="async" />
+          <figcaption><span>Diseño</span> Boceto a mano</figcaption>
+        </figure>
+        <figure class="gallery-item gallery-wide" data-reveal>
+          <img src="assets/img/gallery-2.jpg" alt="Brazo tatuado completo con motivos florales en color" loading="lazy" decoding="async" />
+          <figcaption><span>Color</span> Brazo completo floral</figcaption>
+        </figure>
+        <figure class="gallery-item" data-reveal>
+          <img src="assets/img/service-tradicional.jpg" alt="Láminas de flash tradicional enmarcadas en el estudio" loading="lazy" decoding="async" />
+          <figcaption><span>Flash</span> Láminas del estudio</figcaption>
+        </figure>
+      </div>
+
+      <div class="container">
+        <p class="gallery-cta" data-reveal>
+          <a class="link-underline" href="https://www.instagram.com/brisa.tattoostudio" target="_blank" rel="noopener">
+            Ver todo en Instagram · @brisa.tattoostudio ↗
+          </a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ ARTISTAS ============ -->
+    <section class="section section-team" id="artistas">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="kicker">04 · Artistas</p>
+          <h2 class="section-title">Tres manos, <em>tres formas de dibujar</em>.</h2>
+        </header>
+
+        <div class="team">
+          <article class="card artist" data-reveal data-tilt>
+            <span class="artist-avatar" aria-hidden="true">L</span>
+            <h3>Laura</h3>
+            <p class="artist-role">Realismo · Blackwork</p>
+            <p>
+              Viene del dibujo a lápiz y se le nota: trabaja las sombras con mucha paciencia.
+              Se encarga de las piezas grandes y de las coberturas.
+            </p>
+          </article>
+          <article class="card artist" data-reveal data-tilt>
+            <span class="artist-avatar" aria-hidden="true">P</span>
+            <h3>Paula</h3>
+            <p class="artist-role">Fine line · Micropigmentación</p>
+            <p>
+              Pulso de relojera para el trazo fino. Lleva también la micropigmentación de
+              cejas y el camuflaje de cicatrices.
+            </p>
+          </article>
+          <article class="card artist" data-reveal data-tilt>
+            <span class="artist-avatar" aria-hidden="true">S</span>
+            <h3>Sofia</h3>
+            <p class="artist-role">Tradicional · Piercing</p>
+            <p>
+              Defiende el flash clásico como nadie y es quien te atiende si vienes a
+              perforarte: explica cada paso sin prisa.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROCESO ============ -->
+    <section class="section section-process" id="proceso">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="kicker">05 · Proceso y cuidados</p>
+          <h2 class="section-title">De la idea a la piel <em>ya curada</em>.</h2>
+        </header>
+
+        <ol class="steps">
+          <li class="step" data-reveal>
+            <span class="step-num">01</span>
+            <div class="step-body">
+              <h3>Consulta y boceto</h3>
+              <p>
+                Nos cuentas la idea, el tamaño y la zona. Miramos referencias, hablamos de
+                presupuesto y dibujamos una primera propuesta. Sin compromiso.
+              </p>
+            </div>
+          </li>
+          <li class="step" data-reveal>
+            <span class="step-num">02</span>
+            <div class="step-body">
+              <h3>La sesión</h3>
+              <p>
+                Preparamos la zona, colocamos el estencil y ajustamos lo que haga falta antes
+                de empezar. Material estéril de un solo uso y descansos cuando los pidas.
+              </p>
+            </div>
+          </li>
+          <li class="step" data-reveal>
+            <span class="step-num">03</span>
+            <div class="step-body">
+              <h3>Las dos primeras semanas</h3>
+              <p>
+                Lavado suave con jabón neutro dos veces al día, crema fina, ropa holgada y
+                nada de piscina, playa ni sol directo. Te lo damos por escrito.
+              </p>
+            </div>
+          </li>
+          <li class="step" data-reveal>
+            <span class="step-num">04</span>
+            <div class="step-body">
+              <h3>Revisión al mes</h3>
+              <p>
+                Cuando la piel está curada la vemos juntas: si algún punto necesita repaso,
+                el primer retoque va incluido.
+              </p>
+            </div>
+          </li>
+        </ol>
+
+        <svg class="mark mark-divider" viewBox="0 0 120 150" fill="none" aria-hidden="true" data-draw>
+          <path d="M60 22c-9 4-13.5 12-9.5 19.5C54 48.5 62 50.5 65 47c3-3.5.5-9.5-4.5-11" />
+          <path d="M60 22c9 4 13.5 12 9.5 19.5C66 48.5 58 50.5 55 47c-3-3.5-.5-9.5 4.5-11" />
+          <path d="M43 33c-8 7-9 18-2 25 5 5 13 5 16 1" />
+          <path d="M77 33c8 7 9 18 2 25-5 5-13 5-16 1" />
+          <path d="M60 60v70" />
+          <path d="M60 84c-7-6-16-6-22-1 4 8 14 11 22 6" />
+          <path d="M60 102c7-6 16-6 22-1-4 8-14 11-22 6" />
+        </svg>
+      </div>
+    </section>
+
+    <!-- ============ OPINIONES ============ -->
+    <section class="section section-quotes" id="opiniones">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="kicker">06 · Opiniones</p>
+          <h2 class="section-title">Lo que cuentan <em>al salir</em>.</h2>
+        </header>
+
+        <div class="quotes">
+          <figure class="card quote" data-reveal>
+            <blockquote>
+              Iba con miedo por ser mi primer tatuaje grande y acabé dormida en la camilla.
+              Laura me explicó cada paso y el diseño quedó mejor que en el boceto.
+            </blockquote>
+            <figcaption>Marta R. <span>· Girona</span></figcaption>
+          </figure>
+          <figure class="card quote" data-reveal>
+            <blockquote>
+              El trazo fino de Paula es de otro nivel. Un año después la línea sigue igual de
+              limpia que el primer día.
+            </blockquote>
+            <figcaption>Èric V. <span>· Salt</span></figcaption>
+          </figure>
+          <figure class="card quote" data-reveal>
+            <blockquote>
+              Fui a perforarme las orejas con mi hija y Sofia nos dedicó media hora solo a
+              explicarnos los cuidados. Volveremos.
+            </blockquote>
+            <figcaption>Nuria G. <span>· Figueres</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACTO ============ -->
+    <section class="section section-contact" id="contacto">
+      <div class="contact-mesh" aria-hidden="true"></div>
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="kicker">07 · Reservar</p>
+          <h2 class="section-title">Cuéntanos la idea <em>y te contestamos</em>.</h2>
+        </header>
+
+        <div class="contact-grid">
+          <div class="contact-form-wrap" data-reveal>
+            <form class="cta-form" data-contact-form novalidate>
+              <div class="field">
+                <input type="text" id="f-nombre" name="name" required placeholder=" " autocomplete="name" />
+                <label for="f-nombre">Nombre</label>
+              </div>
+              <div class="field">
+                <input type="email" id="f-email" name="email" required placeholder=" " autocomplete="email" />
+                <label for="f-email">Email</label>
+              </div>
+              <div class="field">
+                <input type="tel" id="f-tel" name="phone" placeholder=" " autocomplete="tel" />
+                <label for="f-tel">Teléfono (opcional)</label>
+              </div>
+              <div class="field field-select">
+                <label class="field-label" for="f-servicio">Qué te interesa</label>
+                <select id="f-servicio" name="service">
+                  <option>Tatuaje · realismo</option>
+                  <option>Tatuaje · blackwork</option>
+                  <option>Tatuaje · fine line</option>
+                  <option>Tatuaje · tradicional</option>
+                  <option>Piercing</option>
+                  <option>Micropigmentación</option>
+                  <option>Eliminación láser</option>
+                  <option>Todavía no lo sé</option>
+                </select>
+              </div>
+              <div class="field field-full">
+                <textarea id="f-msg" name="message" rows="4" required placeholder=" "></textarea>
+                <label for="f-msg">Tu idea: zona del cuerpo, tamaño aproximado, referencias…</label>
+              </div>
+              <div class="field-check field-full">
+                <input type="checkbox" id="f-rgpd" name="consent" required />
+                <label for="f-rgpd">
+                  He leído y acepto la
+                  <a class="link-underline" href="privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.
+                  Usaremos tus datos solo para responderte.
+                </label>
+              </div>
+              <button type="submit" class="btn btn-primary cta-submit">
+                <span class="cta-form-label">Enviar solicitud</span>
+                <span class="cta-form-spinner" aria-hidden="true"></span>
+              </button>
+              <p class="form-note">
+                Te respondemos en 24–48 h laborables. Si tienes prisa, mejor por WhatsApp.
+              </p>
+            </form>
+            <div class="cta-success" data-contact-success aria-hidden="true">
+              <svg class="mark mark-success" viewBox="0 0 120 150" fill="none" aria-hidden="true" data-draw>
+                <path d="M60 22c-9 4-13.5 12-9.5 19.5C54 48.5 62 50.5 65 47c3-3.5.5-9.5-4.5-11" />
+                <path d="M60 22c9 4 13.5 12 9.5 19.5C66 48.5 58 50.5 55 47c-3-3.5-.5-9.5 4.5-11" />
+                <path d="M43 33c-8 7-9 18-2 25 5 5 13 5 16 1" />
+                <path d="M77 33c8 7 9 18 2 25-5 5-13 5-16 1" />
+                <path d="M60 60v70" />
+                <path d="M60 84c-7-6-16-6-22-1 4 8 14 11 22 6" />
+                <path d="M60 102c7-6 16-6 22-1-4 8-14 11-22 6" />
+              </svg>
+              <h3 data-contact-success-title>Recibido</h3>
+              <p data-contact-success-msg>Te escribimos en breve.</p>
+              <a class="btn btn-primary cta-success-wa" data-contact-wa href="https://wa.me/34695717519" target="_blank" rel="noopener" hidden>
+                Abrir WhatsApp con el mensaje
+              </a>
+              <p class="form-note" data-contact-alt hidden>
+                Si prefieres, llámanos al 695 71 75 19 en horario de estudio.
+              </p>
+            </div>
+          </div>
+
+          <aside class="contact-info" data-reveal>
+            <div class="info-block">
+              <h3>Dónde estamos</h3>
+              <p>
+                Carrer Dr. Antic Roca, 20<br />
+                17003 Girona
+              </p>
+              <a class="link-underline" href="https://www.google.com/maps/search/?api=1&query=Carrer+Dr.+Antic+Roca+20+17003+Girona" target="_blank" rel="noopener">Abrir en Google Maps ↗</a>
+            </div>
+
+            <div class="info-block">
+              <h3>Horario</h3>
+              <ul class="hours">
+                <li><span>Lunes</span><span>11:00–19:00</span></li>
+                <li><span>Martes</span><span>11:00–19:00</span></li>
+                <li><span>Miércoles</span><span>11:00–19:00</span></li>
+                <li><span>Jueves</span><span>11:00–19:00</span></li>
+                <li><span>Viernes</span><span>11:00–19:00</span></li>
+                <li><span>Sábado</span><span>11:00–19:00</span></li>
+                <li class="is-closed"><span>Domingo</span><span>Cerrado</span></li>
+              </ul>
+            </div>
+
+            <div class="info-block">
+              <h3>Contacto directo</h3>
+              <p class="info-lines">
+                <a class="link-underline" href="tel:+34695717519">695 71 75 19</a>
+                <a class="link-underline" href="https://wa.me/34695717519" target="_blank" rel="noopener">WhatsApp ↗</a>
+                <a class="link-underline" href="https://www.instagram.com/brisa.tattoostudio" target="_blank" rel="noopener">@brisa.tattoostudio ↗</a>
+              </p>
+            </div>
+          </aside>
+        </div>
+
+        <div class="map" data-reveal>
+          <iframe
+            title="Mapa de Brisa Tattoo Studio en Girona"
+            src="https://www.google.com/maps?q=Carrer%20Dr.%20Antic%20Roca%2020%2C%2017003%20Girona&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="footer-name">Brisa Tattoo Studio</span>
+        <p>Tatuaje, piercing y micropigmentación · Girona</p>
+      </div>
+      <nav class="footer-nav" aria-label="Navegación del pie">
+        <a href="#estudio">Estudio</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#artistas">Artistas</a>
+        <a href="#contacto">Reservar cita</a>
+      </nav>
+      <div class="footer-contact">
+        <a href="https://www.instagram.com/brisa.tattoostudio" target="_blank" rel="noopener">@brisa.tattoostudio</a>
+        <a href="tel:+34695717519">695 71 75 19</a>
+        <span>Carrer Dr. Antic Roca, 20 · 17003 Girona</span>
+      </div>
+    </div>
+    <div class="container footer-legal">
+      <p>© 2026 Brisa Tattoo Studio. Todos los derechos reservados.</p>
+      <p class="footer-credits">
+        <a class="link-underline" href="privacidad.html">Privacidad y aviso legal</a>
+        · Imágenes de muestra bajo licencia Creative Commons.
+        <a class="link-underline" href="creditos.html">Créditos fotográficos →</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Acceso rápido a WhatsApp (solo móvil) -->
+  <a class="wa-float" href="https://wa.me/34695717519" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L4 20l1.2-4.2A8.5 8.5 0 1 1 21 11.5Z" />
+      <path d="M9 9.5c0 3 2.5 5.5 5.5 5.5" />
+    </svg>
+    <span><span class="wa-long">Escríbenos por </span>WhatsApp</span>
+  </a>
+
+  <!-- Lightbox -->
+  <dialog class="lightbox" data-lightbox aria-label="Imagen ampliada">
+    <button class="lightbox-close" type="button" data-lightbox-close aria-label="Cerrar">×</button>
+    <img data-lightbox-img src="" alt="" />
+    <p class="lightbox-caption" data-lightbox-caption></p>
+  </dialog>
+
+  <script defer src="lib/gsap.min.js"></script>
+  <script defer src="lib/ScrollTrigger.min.js"></script>
+  <script defer src="lib/manifest.js?v=20260911"></script>
+  <script defer src="main.js?v=20260911"></script>
+</body>
+</html>

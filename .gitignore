@@ -1,0 +1,7 @@
+# Archivos del sistema
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Originales de fotos antes de optimizar (no hace falta versionarlos)
+assets/photos/source/

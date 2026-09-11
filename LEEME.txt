@@ -1,0 +1,109 @@
+BRISA TATTOO STUDIO — web estática (prototipo)
+==============================================
+
+CÓMO VERLA
+----------
+Doble clic en index.html. Se abre en el navegador sin instalar nada.
+
+CÓMO PUBLICARLA (Hostinger u otro hosting)
+------------------------------------------
+Sube TODO el contenido de esta carpeta (incluido el archivo oculto .htaccess)
+a la carpeta public_html del hosting. No hay que compilar nada.
+
+QUÉ HAY QUE CAMBIAR ANTES DE PUBLICAR
+-------------------------------------
+1. FOTOS: las imágenes de assets/img/ son de muestra (Creative Commons, ver
+   creditos.html). Sustitúyelas por fotos reales del estudio y de los trabajos
+   manteniendo los mismos nombres de archivo:
+     hero.jpg               → portada (horizontal, algo oscura funciona mejor)
+     about.jpg              → sección "El estudio" (formato ancho 16:8)
+     gallery-7.jpg          → portfolio, tarjeta vertical (izquierda)
+     gallery-8.jpg          → portfolio, tarjeta vertical (centro)
+     gallery-1.jpg          → portfolio, tarjeta cuadrada
+     gallery-4.jpg          → portfolio, boceto sobre fondo blanco
+                              (esta tarjeta se invierte a línea blanca; si
+                              pones una foto normal, quita la clase
+                              "gallery-ink" en index.html)
+     gallery-2.jpg          → portfolio, tarjeta ancha
+     service-tradicional.jpg→ portfolio, tarjeta cuadrada
+   Los textos de cada tarjeta (estilo + descripción) están en index.html,
+   dentro de <figcaption>.
+   Cuando las fotos sean propias, borra el enlace "Créditos fotográficos"
+   del pie de index.html y el archivo creditos.html.
+
+2. ARTISTAS: los textos de Laura, Paula y Sofía en la sección "Artistas" son
+   un borrador de ejemplo. Revisa las descripciones y añade foto si queréis.
+
+3. PRECIOS: los importes de la sección "Servicios" son orientativos de ejemplo.
+   Ajústalos a los reales.
+
+4. TESTIMONIOS: las tres opiniones son de ejemplo. Sustitúyelas por reseñas
+   reales (Google/Instagram) antes de publicar.
+
+5. DATOS LEGALES (obligatorio): abre privacidad.html y rellena los cuatro
+   datos marcados entre corchetes: nombre o razón social, NIF, email de
+   contacto y nombre de la empresa de hosting. Cuando estén puestos, borra
+   el recuadro de aviso que hay arriba de esa página (el bloque
+   <div class="legal-pending">...</div>).
+   El formulario ya obliga a aceptar esa política antes de enviar, como
+   exige la normativa de protección de datos.
+
+DATOS YA REALES EN LA WEB
+-------------------------
+Dirección: Carrer Dr. Antic Roca, 20 · 17003 Girona
+Teléfono/WhatsApp: 695 71 75 19
+Instagram: @brisa.tattoostudio
+Horario: lunes a sábado 11:00–19:00 · domingo cerrado
+
+AL TENER YA EL DOMINIO (2 minutos)
+----------------------------------
+En index.html hay dos sitios donde conviene poner la dirección real de la web
+(ayuda a Google y a que el enlace se vea bien al compartirlo por WhatsApp):
+  1. La etiqueta og:image → cámbiala por la ruta completa, por ejemplo
+     https://tudominio.com/assets/img/hero.jpg
+  2. En el bloque de datos de Google (application/ld+json) añade una línea
+     "url": "https://tudominio.com",
+
+FORMULARIO DE CONTACTO
+----------------------
+TAL Y COMO ESTÁ AHORA sí funciona: al enviarlo se abre WhatsApp con el
+mensaje ya redactado (nombre, servicio, texto, email y teléfono) y el
+cliente solo tiene que darle a enviar. No se pierde ninguna solicitud y no
+hace falta contratar nada.
+
+SI ADEMÁS QUERÉIS RECIBIRLO POR EMAIL (5 minutos, gratis):
+  1. Entra en https://web3forms.com y pon el email del estudio. Te envían
+     una clave (access key) al correo.
+  2. Abre lib/manifest.js y busca la línea:  formEndpoint: "",
+  3. Déjala así, con la URL de Web3Forms:
+     formEndpoint: "https://api.web3forms.com/submit",
+  4. Justo debajo hay otra línea, accessKey: "", → pega ahí la clave:
+     accessKey: "TU-CLAVE-AQUI",
+     (si prefieres Formspree, pon en formEndpoint la URL que te dan ellos
+     y deja accessKey vacío)
+  5. Sube lib/manifest.js al hosting.
+A partir de ahí el formulario envía por correo, y si el correo fallara por
+lo que sea, ofrece automáticamente el envío por WhatsApp para que la
+solicitud no se pierda.
+
+SI CAMBIAS ALGO Y NO LO VES EN LA WEB PUBLICADA
+-----------------------------------------------
+Es la caché. En index.html y creditos.html cambia el número de versión
+?v=20260910 por la fecha del día en las líneas de styles.css y main.js,
+y vuelve a subir los .html.
+
+ESTRUCTURA
+----------
+index.html      → la web
+privacidad.html → política de privacidad y aviso legal (rellenar datos)
+creditos.html   → créditos de las fotos de muestra
+404.html        → página de error, se muestra si alguien entra a una URL
+                  que no existe
+robots.txt      → permiso de rastreo para Google
+styles.css      → todos los estilos
+main.js         → animaciones e interacciones
+lib/            → GSAP + datos de contacto del estudio
+assets/img/     → imágenes
+.htaccess       → configuración de caché del servidor (no borrar)
+tools/          → utilidades de desarrollo (servidor local y buscador de
+                  imágenes). No hace falta subirlas al hosting.
