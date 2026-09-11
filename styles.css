@@ -936,6 +936,33 @@ em { font-style: italic; }
 .legal-pending strong { color: var(--accent); font-weight: 500; }
 
 /* =============================================================
+   18.5 Franja del boletín (al final de la portada)
+   ============================================================= */
+.news-band {
+  position: relative;
+  background: var(--bg-2);
+  border-top: 1px solid var(--line-soft);
+  padding-block: clamp(3rem, 6vw, 4.6rem);
+  isolation: isolate;
+  overflow: hidden;
+}
+.news-band::before {
+  content: ""; position: absolute; inset: -60% -20% -40% 40%; z-index: -1;
+  background: radial-gradient(45% 45% at 60% 50%, rgba(232, 174, 198, 0.16), transparent 70%);
+  filter: blur(70px);
+  pointer-events: none;
+}
+.news-band-inner { display: grid; gap: 1.8rem; align-items: center; }
+.news-band .kicker { margin-bottom: 0.9rem; }
+.news-band-title { font-size: clamp(1.55rem, 3.2vw, 2.35rem); line-height: 1.1; }
+.news-band-title em { color: var(--accent); font-weight: 400; }
+.news-band-sub {
+  margin-top: 0.9rem; max-width: 50ch;
+  color: var(--cream-2); font-size: 0.95rem;
+}
+.news-band-btn { justify-self: start; }
+
+/* =============================================================
    19.5 Landing del boletín (newsletter.html)
    ============================================================= */
 .news-hero {
@@ -1066,6 +1093,8 @@ em { font-style: italic; }
   .nav-burger { display: none; }
   .services { grid-template-columns: repeat(3, 1fr); }
   .contact-grid { grid-template-columns: 1.25fr 0.75fr; gap: 4rem; }
+  .news-band-inner { grid-template-columns: 1fr auto; gap: 3rem; }
+  .news-band-btn { justify-self: end; }
   .about-lead { columns: 2; column-gap: 3rem; max-width: none; }
   .about-lead p { break-inside: avoid; }
 }
