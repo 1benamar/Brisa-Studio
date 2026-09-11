@@ -247,7 +247,13 @@ em { font-style: italic; }
   padding-inline: var(--gutter);
   display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
 }
-.nav-brand { display: grid; line-height: 1.05; }
+.nav-brand { display: flex; align-items: center; gap: 0.6rem; }
+.nav-brand-text { display: grid; line-height: 1.05; }
+.nav-brand-mark {
+  width: 26px; height: auto; flex: 0 0 auto;
+  transition: transform 0.5s var(--ease-soft);
+}
+.nav-brand:hover .nav-brand-mark { transform: rotate(-6deg); }
 .nav-brand-name {
   font-family: var(--serif); font-style: italic; font-size: 1.5rem;
   letter-spacing: 0.02em; color: var(--cream);
