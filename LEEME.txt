@@ -55,6 +55,14 @@ Teléfono/WhatsApp: 695 71 75 19
 Instagram: @brisa.tattoostudio
 Horario: lunes a sábado 11:00–19:00 · domingo cerrado
 
+CUANDO LA WEB SEA LA DEFINITIVA
+-------------------------------
+En index.html, cerca del principio, hay esta línea:
+   <meta name="robots" content="noindex" />
+Está puesta a propósito para que Google NO indexe la versión de prueba con
+fotos y textos de ejemplo. Bórrala el día que se publique la web real, o no
+aparecerá en las búsquedas.
+
 AL TENER YA EL DOMINIO (2 minutos)
 ----------------------------------
 En index.html hay dos sitios donde conviene poner la dirección real de la web
