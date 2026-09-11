@@ -55,6 +55,26 @@ Teléfono/WhatsApp: 695 71 75 19
 Instagram: @brisa.tattoostudio
 Horario: lunes a sábado 11:00–19:00 · domingo cerrado
 
+LANDING DEL BOLETÍN (newsletter.html)
+-------------------------------------
+Es una página aparte, pensada para enviar por Instagram o WhatsApp y captar
+suscriptoras. Se llega a ella desde el enlace "Boletín" del pie de la web.
+
+Ahora mismo, al apuntarse, avisa de que el alta automática no está conectada
+y ofrece hacerlo por WhatsApp. Es a propósito: es preferible eso a decirle a
+alguien que está suscrita cuando su correo no se ha guardado en ningún sitio.
+
+PARA QUE EL ALTA SEA AUTOMÁTICA (gratis hasta cierto volumen):
+  1. Crea una cuenta en Brevo (brevo.com), Mailchimp o MailerLite.
+  2. Crea una lista de contactos y su formulario de suscripción.
+  3. Copia la URL a la que envía ese formulario (el "action" del formulario
+     que te dan al incrustarlo).
+  4. Abre lib/manifest.js y pégala en:
+     newsletterEndpoint: "",
+  5. Sube lib/manifest.js al hosting.
+El texto del ejemplo de número ("Número 07 · Septiembre") es de muestra:
+cámbialo en newsletter.html por el contenido real del último envío.
+
 CUANDO LA WEB SEA LA DEFINITIVA
 -------------------------------
 En index.html, cerca del principio, hay esta línea:

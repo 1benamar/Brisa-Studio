@@ -21,6 +21,7 @@ node tools/preview-server.js 8791
 | Archivo | Qué es |
 |---|---|
 | `index.html` | La web completa: portada, estudio, servicios, portfolio, artistas, proceso, opiniones y contacto |
+| `newsletter.html` | Landing del boletín "Tinta fresca", con formulario de suscripción |
 | `privacidad.html` | Política de privacidad y aviso legal |
 | `creditos.html` | Créditos de las imágenes de muestra |
 | `404.html` | Página de error |

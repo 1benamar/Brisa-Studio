@@ -448,6 +448,77 @@
   }
 
   /* ---------------------------------------------------------
+     Alta en el boletín (newsletter.html)
+     - Con data.newsletterEndpoint: da de alta en Brevo/Mailchimp.
+     - Sin configurar: lo dice claramente y ofrece apuntarse por WhatsApp,
+       en vez de fingir un alta que no existe.
+     --------------------------------------------------------- */
+  function setupNewsletterForm() {
+    var form = $("[data-news-form]");
+    var success = $("[data-news-success]");
+    if (!form || !success) return;
+
+    var btn = form.querySelector("[type=submit]");
+    var title = $("[data-news-success-title]");
+    var msg = $("[data-news-success-msg]");
+    var waBtn = $("[data-news-wa]");
+    var endpoint = (data.newsletterEndpoint || "").trim();
+    var waNumber = (data.whatsapp || "").replace(/\D/g, "") || "34695717519";
+
+    function show(titleText, msgText, waUrl) {
+      if (title) title.textContent = titleText;
+      if (msg) msg.textContent = msgText;
+      if (waBtn) {
+        if (waUrl) { waBtn.href = waUrl; waBtn.hidden = false; }
+        else waBtn.hidden = true;
+      }
+      form.classList.remove("is-sending");
+      form.classList.add("is-sent");
+      success.setAttribute("aria-hidden", "false");
+      success.classList.add("is-visible");
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (form.classList.contains("is-sending")) return;
+      if (!form.reportValidity()) return;
+
+      var email = form.elements.email ? form.elements.email.value.trim() : "";
+      form.classList.add("is-sending");
+      if (btn) btn.disabled = true;
+
+      if (!endpoint) {
+        setTimeout(function () {
+          show(
+            "Casi",
+            "El alta automática todavía no está conectada. Escríbenos por WhatsApp y te apuntamos a mano en un momento.",
+            "https://wa.me/" + waNumber + "?text=" +
+              encodeURIComponent("Hola, quiero apuntarme al boletín. Mi email es " + email + ".")
+          );
+        }, 500);
+        return;
+      }
+
+      var body = new FormData();
+      body.append("email", email);
+
+      fetch(endpoint, { method: "POST", body: body, mode: "no-cors" })
+        .then(function () {
+          show("Apuntada", "Gracias. El próximo número te llegará a " + email + ".", null);
+        })
+        .catch(function (err) {
+          console.warn("[boletín] fallo el alta:", err);
+          show(
+            "No hemos podido apuntarte",
+            "Algo ha fallado. Escríbenos por WhatsApp y lo hacemos a mano.",
+            "https://wa.me/" + waNumber + "?text=" +
+              encodeURIComponent("Hola, quiero apuntarme al boletín. Mi email es " + email + ".")
+          );
+        });
+    });
+  }
+
+  /* ---------------------------------------------------------
      Boot
      --------------------------------------------------------- */
   function boot() {
@@ -460,6 +531,7 @@
     safe(initTilt, "initTilt");
     safe(initLightbox, "initLightbox");
     safe(setupContactForm, "setupContactForm");
+    safe(setupNewsletterForm, "setupNewsletterForm");
 
     if (window.gsap) {
       if (window.ScrollTrigger) {
