@@ -1,11 +1,16 @@
 // Dev-only static server for local preview. Not part of the deployed website.
-// Usage: node tools/preview-server.js [port] [rootDir]
+// Usage: node tools/preview-server.js [rootDir]        (puerto en la variable PORT)
+//        node tools/preview-server.js [port] [rootDir]
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
 
-const port = Number(process.argv[2]) || 8791;
-const root = path.resolve(process.argv[3] || path.join(__dirname, ".."));
+const args = process.argv.slice(2);
+const portArg = args.find((a) => /^\d+$/.test(a));
+const rootArg = args.find((a) => !/^\d+$/.test(a));
+
+const port = Number(process.env.PORT) || Number(portArg) || 8791;
+const root = path.resolve(rootArg || path.join(__dirname, ".."));
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
