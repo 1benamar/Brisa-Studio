@@ -448,6 +448,97 @@
   }
 
   /* ---------------------------------------------------------
+     Abierto / cerrado en tiempo real
+     Usa la hora del estudio (Europe/Madrid), no la del dispositivo, para que
+     el cartel sea correcto también para quien mire la web desde otro país.
+     --------------------------------------------------------- */
+  function initOpenNow() {
+    var badge = $("[data-open-badge]");
+    if (!badge || !data.schedule) return;
+
+    var note = $("[data-hours-note]");
+    var list = $("[data-hours]");
+    var tz = data.timezone || "Europe/Madrid";
+    var DAY_NAMES = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+    var WEEKDAY_INDEX = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+
+    function studioNow() {
+      try {
+        var parts = new Intl.DateTimeFormat("en-US", {
+          timeZone: tz, weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false
+        }).formatToParts(new Date());
+        var got = {};
+        parts.forEach(function (p) { got[p.type] = p.value; });
+        var day = WEEKDAY_INDEX[got.weekday];
+        var h = parseInt(got.hour, 10) % 24;
+        var m = parseInt(got.minute, 10);
+        if (day === undefined || isNaN(h) || isNaN(m)) throw new Error("sin partes");
+        return { day: day, mins: h * 60 + m };
+      } catch (err) {
+        var d = new Date();
+        return { day: d.getDay(), mins: d.getHours() * 60 + d.getMinutes() };
+      }
+    }
+
+    function toMins(hhmm) {
+      var p = String(hhmm).split(":");
+      return parseInt(p[0], 10) * 60 + parseInt(p[1], 10);
+    }
+
+    function nextOpening(fromDay) {
+      for (var i = 1; i <= 7; i++) {
+        var d = (fromDay + i) % 7;
+        if (data.schedule[d]) return { day: d, at: data.schedule[d][0], isTomorrow: i === 1 };
+      }
+      return null;
+    }
+
+    function update() {
+      var now = studioNow();
+      var today = data.schedule[now.day];
+      var isOpen = false;
+      var msg = "";
+
+      if (today) {
+        var opens = toMins(today[0]);
+        var closes = toMins(today[1]);
+        if (now.mins >= opens && now.mins < closes) {
+          isOpen = true;
+          msg = "Cierra a las " + today[1];
+        } else if (now.mins < opens) {
+          msg = "Abre hoy a las " + today[0];
+        }
+      }
+      if (!isOpen && !msg) {
+        var next = nextOpening(now.day);
+        if (next) {
+          msg = next.isTomorrow
+            ? "Abre mañana a las " + next.at
+            : "Abre el " + DAY_NAMES[next.day] + " a las " + next.at;
+        }
+      }
+
+      badge.hidden = false;
+      badge.textContent = isOpen ? "Abierto ahora" : "Cerrado ahora";
+      badge.classList.toggle("is-open", isOpen);
+      badge.classList.toggle("is-shut", !isOpen);
+
+      if (note) {
+        note.textContent = msg;
+        note.hidden = !msg;
+      }
+      if (list) {
+        $$("li", list).forEach(function (li) {
+          li.classList.toggle("is-today", Number(li.getAttribute("data-day")) === now.day);
+        });
+      }
+    }
+
+    update();
+    setInterval(update, 60000);
+  }
+
+  /* ---------------------------------------------------------
      Alta en el boletín (newsletter.html)
      - Con data.newsletterEndpoint: da de alta en Brevo/Mailchimp.
      - Sin configurar: lo dice claramente y ofrece apuntarse por WhatsApp,
@@ -532,6 +623,7 @@
     safe(initLightbox, "initLightbox");
     safe(setupContactForm, "setupContactForm");
     safe(setupNewsletterForm, "setupNewsletterForm");
+    safe(initOpenNow, "initOpenNow");
 
     if (window.gsap) {
       if (window.ScrollTrigger) {

@@ -55,6 +55,20 @@ Teléfono/WhatsApp: 695 71 75 19
 Instagram: @brisa.tattoostudio
 Horario: lunes a sábado 11:00–19:00 · domingo cerrado
 
+SI CAMBIA EL HORARIO DEL ESTUDIO
+--------------------------------
+El cartel de "Abierto ahora / Cerrado ahora" se calcula con la hora real de
+Girona, así que hay que tocar DOS sitios para que no se contradigan:
+
+  1. index.html, la lista de días de la sección de contacto (lo que se lee).
+  2. lib/manifest.js, la lista "schedule" (lo que usa el cálculo).
+     El índice 0 es el domingo, el 1 el lunes… hasta el 6, el sábado.
+     Ejemplo: si los jueves se cerrara a las 21:00, el cuarto valor pasa a
+     ser ["11:00", "21:00"]. Un día cerrado se escribe null.
+
+Debajo de la lista aparece solo el aviso útil: "Cierra a las 19:00" mientras
+está abierto, o "Abre mañana a las 11:00" cuando está cerrado.
+
 LANDING DEL BOLETÍN (newsletter.html)
 -------------------------------------
 Es una página aparte, pensada para enviar por Instagram o WhatsApp y captar

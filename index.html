@@ -593,16 +593,20 @@
             </div>
 
             <div class="info-block">
-              <h3>Horario</h3>
-              <ul class="hours">
-                <li><span>Lunes</span><span>11:00–19:00</span></li>
-                <li><span>Martes</span><span>11:00–19:00</span></li>
-                <li><span>Miércoles</span><span>11:00–19:00</span></li>
-                <li><span>Jueves</span><span>11:00–19:00</span></li>
-                <li><span>Viernes</span><span>11:00–19:00</span></li>
-                <li><span>Sábado</span><span>11:00–19:00</span></li>
-                <li class="is-closed"><span>Domingo</span><span>Cerrado</span></li>
+              <div class="hours-head">
+                <h3>Horario</h3>
+                <span class="open-badge" data-open-badge hidden></span>
+              </div>
+              <ul class="hours" data-hours>
+                <li data-day="1"><span>Lunes</span><span>11:00–19:00</span></li>
+                <li data-day="2"><span>Martes</span><span>11:00–19:00</span></li>
+                <li data-day="3"><span>Miércoles</span><span>11:00–19:00</span></li>
+                <li data-day="4"><span>Jueves</span><span>11:00–19:00</span></li>
+                <li data-day="5"><span>Viernes</span><span>11:00–19:00</span></li>
+                <li data-day="6"><span>Sábado</span><span>11:00–19:00</span></li>
+                <li class="is-closed" data-day="0"><span>Domingo</span><span>Cerrado</span></li>
               </ul>
+              <p class="hours-note" data-hours-note hidden></p>
             </div>
 
             <div class="info-block">
