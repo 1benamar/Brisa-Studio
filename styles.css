@@ -303,36 +303,71 @@ em { font-style: italic; }
   position: fixed; top: 0; left: 0; z-index: 9998;
   display: none;
   pointer-events: none;
-  mix-blend-mode: difference;
   opacity: 0;
-  transition: opacity 0.25s var(--ease-out);
+  transition: opacity 0.3s var(--ease-out);
 }
 .cursor.is-ready { opacity: 1; }
+/* Sobre campos de texto manda el cursor nativo, para escribir con comodidad */
+.cursor.is-ready.is-text { opacity: 0; }
 @media (hover: hover) and (pointer: fine) { .cursor { display: block; } }
-.cursor-dot, .cursor-ring {
+.cursor-ring, .cursor-machine, .cursor-ink {
   position: fixed; top: 0; left: 0; pointer-events: none; will-change: transform;
 }
-.cursor-dot {
-  width: 5px; height: 5px; margin: -2.5px;
-  background: var(--cream); border-radius: 50%;
-}
+
+/* Halo que sigue a la punta de la aguja con un poco de retraso */
 .cursor-ring {
-  width: 34px; height: 34px; margin: -17px;
-  border: 1px solid rgba(244, 236, 233, 0.8); border-radius: 50%;
-  transition: width 0.35s var(--ease-out), height 0.35s var(--ease-out), margin 0.35s var(--ease-out);
+  width: 26px; height: 26px; margin: -13px;
+  border: 1px solid rgba(244, 236, 233, 0.5); border-radius: 50%;
+  transition: width 0.45s var(--ease-out), height 0.45s var(--ease-out), margin 0.45s var(--ease-out),
+              background-color 0.4s, border-color 0.4s;
 }
-.cursor.is-interactive .cursor-ring { width: 54px; height: 54px; margin: -27px; }
-.cursor.is-media { mix-blend-mode: normal; }
-.cursor.is-media .cursor-dot { opacity: 0; }
+.cursor.is-interactive .cursor-ring { width: 52px; height: 52px; margin: -26px; border-color: var(--accent); }
 .cursor.is-media .cursor-ring {
-  width: 88px; height: 88px; margin: -44px;
+  width: 92px; height: 92px; margin: -46px;
   border-color: var(--accent);
   background: rgba(232, 174, 198, 0.1);
   backdrop-filter: blur(2px);
 }
-.cursor-dot { transition: opacity 0.3s var(--ease-out); }
-.cursor-ring { transition: width 0.45s var(--ease-out), height 0.45s var(--ease-out), margin 0.45s var(--ease-out), background-color 0.4s, border-color 0.4s; }
-.has-cursor, .has-cursor a, .has-cursor button, .has-cursor .gallery-item { cursor: none; }
+
+/* Máquina de tatuar: la punta de la aguja coincide exactamente con el puntero.
+   Se inclina con el movimiento (--tilt) y se hunde al hacer clic (--press). */
+.cursor-machine { width: 0; height: 0; }
+.cursor-machine-inner {
+  position: absolute; left: -20px; top: -79px;
+  width: 40px; height: 80px;
+  transform-origin: 20px 79px;
+  transform: rotate(calc(24deg + var(--tilt, 0deg))) scale(var(--press, 1));
+  transition: transform 0.18s var(--ease-out);
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.5));
+}
+.cursor-machine-inner svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.cursor.is-pressed { --press: 0.86; }
+
+/* Encendida: vibra sobre lo que se puede pulsar */
+.cursor.is-interactive .cursor-machine-inner svg { animation: machineBuzz 0.08s steps(2) infinite; }
+@keyframes machineBuzz {
+  0%   { transform: translate(0, 0); }
+  50%  { transform: translate(0.6px, -0.7px); }
+  100% { transform: translate(-0.5px, 0.5px); }
+}
+
+/* Punto de tinta al hacer clic */
+.cursor-ink { width: 0; height: 0; }
+.cursor-ink::after {
+  content: ""; position: absolute; left: -5px; top: -5px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--accent);
+  opacity: 0; transform: scale(0.2);
+}
+.cursor-ink.is-splash::after { animation: inkSplash 0.65s cubic-bezier(0.16, 1, 0.3, 1); }
+@keyframes inkSplash {
+  0%   { opacity: 0.9; transform: scale(0.2); }
+  100% { opacity: 0; transform: scale(4.2); }
+}
+
+.has-cursor, .has-cursor a, .has-cursor button, .has-cursor .gallery-item,
+.has-cursor label, .has-cursor select, .has-cursor input[type="checkbox"] { cursor: none; }
+.has-cursor input:not([type="checkbox"]), .has-cursor textarea { cursor: text; }
 
 /* =============================================================
    7. Nav
@@ -1448,6 +1483,7 @@ em { font-style: italic; }
    ============================================================= */
 @media (prefers-reduced-motion: reduce) {
   .hero-dot { animation: none; }
+  .cursor.is-interactive .cursor-machine-inner svg { animation: none; }
   /* La banda sigue moviéndose, pero mucho más despacio */
   .marquee-track { animation-duration: 120s; }
   .marquee-row-rev .marquee-track { animation-duration: 150s; }

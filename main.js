@@ -227,45 +227,67 @@
   }
 
   /* ---------------------------------------------------------
-     Cursor: crece sobre lo interactivo y se vuelve lente sobre imágenes
+     Cursor: máquina de tatuar con la punta de la aguja en el puntero.
+     Se inclina con el movimiento, vibra sobre lo que se puede pulsar,
+     se hunde al hacer clic y deja un punto de tinta.
      --------------------------------------------------------- */
   function initCursor() {
     var root = $("[data-cursor-root]");
     if (!root || !fineHover) return;
     document.documentElement.classList.add("has-cursor");
 
-    var dot = $(".cursor-dot", root);
+    var machine = $(".cursor-machine", root);
     var ring = $(".cursor-ring", root);
-    var tx = 0, ty = 0, rx = 0, ry = 0, first = false;
+    var ink = $(".cursor-ink", root);
+    var tx = 0, ty = 0, rx = 0, ry = 0, lastX = 0, tilt = 0, first = false;
+    var maxTilt = reduced ? 6 : 16;
 
     window.addEventListener("mousemove", function (e) {
       tx = e.clientX; ty = e.clientY;
-      if (dot) dot.style.transform = "translate3d(" + tx + "px," + ty + "px,0)";
+      // La máquina va pegada al puntero, sin retraso: la aguja marca dónde se pulsa
+      if (machine) machine.style.transform = "translate3d(" + tx + "px," + ty + "px,0)";
       if (!first) {
         first = true;
-        rx = tx; ry = ty;
+        rx = tx; ry = ty; lastX = tx;
         if (ring) ring.style.transform = "translate3d(" + rx + "px," + ry + "px,0)";
-        root.classList.add("is-ready");
       }
+      root.classList.add("is-ready");
     }, { passive: true });
 
     (function tick() {
       rx += (tx - rx) * 0.18;
       ry += (ty - ry) * 0.18;
       if (ring) ring.style.transform = "translate3d(" + rx + "px," + ry + "px,0)";
+      var vx = tx - lastX;
+      lastX = tx;
+      var target = Math.max(-maxTilt, Math.min(maxTilt, vx * 0.9));
+      tilt += (target - tilt) * 0.12;
+      root.style.setProperty("--tilt", tilt.toFixed(2) + "deg");
       requestAnimationFrame(tick);
     })();
 
-    var HOVERABLES = "a[href], button, .card, .gallery-item, input, textarea, select, label";
+    window.addEventListener("mousedown", function (e) {
+      root.classList.add("is-pressed");
+      if (!ink) return;
+      ink.style.transform = "translate3d(" + e.clientX + "px," + e.clientY + "px,0)";
+      ink.classList.remove("is-splash");
+      void ink.offsetWidth; // reinicia la animación aunque se pulse varias veces seguidas
+      ink.classList.add("is-splash");
+    });
+    window.addEventListener("mouseup", function () { root.classList.remove("is-pressed"); });
+
+    var HOVERABLES = "a[href], button, .gallery-item, select, label, input[type=checkbox]";
+    var TEXT = "input:not([type=checkbox]):not([type=radio]), textarea";
     var MEDIA = ".gallery-item, .about-figure";
     document.addEventListener("mouseover", function (e) {
       var t = e.target;
       if (!t || !t.closest) return;
+      root.classList.toggle("is-text", !!t.closest(TEXT));
       root.classList.toggle("is-interactive", !!t.closest(HOVERABLES));
       root.classList.toggle("is-media", !!t.closest(MEDIA));
     });
-    document.addEventListener("mouseleave", function () {
-      root.classList.remove("is-interactive", "is-media");
+    document.documentElement.addEventListener("mouseleave", function () {
+      root.classList.remove("is-ready", "is-interactive", "is-media", "is-pressed");
     });
   }
 
