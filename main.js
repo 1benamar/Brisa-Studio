@@ -43,10 +43,21 @@
     if (!splash) return;
     var count = $("[data-splash-count]", splash);
     var bar = $("[data-splash-bar]", splash);
-    var minDur = reduced ? 450 : 1400;
+    var minDur = reduced ? 400 : 900;
     var loaded = document.readyState === "complete";
     var start = null;
     var gone = false;
+
+    // La presentación es para la primera visita. Al volver o al pasar a otra
+    // página de la web, entrar de nuevo por una cuenta atrás sería un peaje.
+    var seen = false;
+    try { seen = sessionStorage.getItem("brisa:intro") === "1"; } catch (err) {}
+    if (seen) {
+      splash.style.display = "none";
+      fireIntro();
+      return;
+    }
+    try { sessionStorage.setItem("brisa:intro", "1"); } catch (err) {}
 
     window.addEventListener("load", function () { loaded = true; });
 
@@ -164,15 +175,19 @@
       // (pseudo-elemento) y la imagen de dentro.
       if (delay) el.style.setProperty("--reveal-delay", delay + "s");
       el.classList.add("is-revealed");
-      // Se limpia para que no ralentice luego los efectos al pasar el ratón
-      setTimeout(function () { el.style.removeProperty("--reveal-delay"); }, 2400);
+      setTimeout(function () {
+        el.style.removeProperty("--reveal-delay");
+        // Al acabar se retira el atributo: si no, la transición lenta del
+        // revelado seguiría pisando la del hover (tarjetas, botones, fotos).
+        el.removeAttribute("data-reveal");
+      }, 2400);
     };
 
     var io = new IntersectionObserver(function (entries) {
       var batch = 0;
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        reveal(entry.target, Math.min(batch, 6) * 0.09);
+        reveal(entry.target, Math.min(batch, 6) * 0.07);
         batch++;
         io.unobserve(entry.target);
       });
@@ -333,7 +348,8 @@
      Usa la propiedad "translate" para no pisar el "transform" del hover.
      --------------------------------------------------------- */
   function initMagnetic() {
-    if (!fineHover) return;
+    // Es decoración: con movimiento reducido no se aplica
+    if (!fineHover || reduced) return;
     $$("[data-magnetic]").forEach(function (el) {
       if (el.dataset.magBound) return;
       el.dataset.magBound = "1";
@@ -456,17 +472,20 @@
       var isHero = el.getAttribute("data-split") === "hero";
       var words = splitInto(el, "split-word", true);
       if (!words.length) return;
-      window.gsap.set(words, { yPercent: 118 });
+      // Con movimiento reducido las palabras sólo aparecen, no se desplazan
+      window.gsap.set(words, reduced ? { opacity: 0 } : { yPercent: 118 });
 
       var tween = null;
       var play = function () {
         if (tween) return;
-        tween = window.gsap.to(words, {
-          yPercent: 0,
-          duration: reduced ? 0.6 : (isHero ? 1.3 : 1.1),
-          stagger: reduced ? 0.01 : (isHero ? 0.055 : 0.035),
-          ease: "expo.out"
-        });
+        tween = window.gsap.to(words, reduced
+          ? { opacity: 1, duration: 0.4, stagger: 0.01, ease: "power1.out" }
+          : {
+              yPercent: 0,
+              duration: isHero ? 1.2 : 1,
+              stagger: isHero ? 0.045 : 0.03,
+              ease: "expo.out"
+            });
       };
 
       if (isHero) {
@@ -499,19 +518,24 @@
     var items = $$("[data-intro]").filter(function (el) { return !el.hasAttribute("data-split"); });
     var heroImg = $(".hero-bg img");
 
-    if (items.length) window.gsap.set(items, { y: 30, opacity: 0 });
+    var title = $("[data-split='hero']");
+    // Con movimiento reducido entra sólo el fundido, sin desplazamiento
+    if (items.length) window.gsap.set(items, { y: reduced ? 0 : 30, opacity: 0 });
     if (heroImg) window.gsap.set(heroImg, { scale: reduced ? 1.1 : 1.32 });
+    if (title && !reduced) window.gsap.set(title, { filter: "blur(7px)" });
     root.classList.remove("intro");
 
     onIntro(function () {
       var tl = window.gsap.timeline({ defaults: { ease: "expo.out" } });
       if (heroImg) tl.to(heroImg, { scale: 1.04, duration: reduced ? 1 : 2.8 }, 0);
+      // El desenfoque une las palabras al entrar en lugar de verse una a una
+      if (title && !reduced) tl.to(title, { filter: "blur(0px)", duration: 1.4 }, 0.25);
       if (items.length) {
         tl.to(items, {
           y: 0, opacity: 1,
-          duration: reduced ? 0.6 : 1.3,
-          stagger: reduced ? 0.03 : 0.1
-        }, reduced ? 0 : 0.18);
+          duration: reduced ? 0.5 : 1.2,
+          stagger: reduced ? 0.03 : 0.08
+        }, reduced ? 0 : 0.16);
       }
       setTimeout(function () { tl.progress(1); }, 6000);
     });
@@ -524,9 +548,10 @@
     if (!window.gsap || !window.ScrollTrigger) return;
     var bg = $(".hero-bg");
     var inner = $(".hero-inner");
-    if (bg) {
+    // Con movimiento reducido se queda sólo el fundido, sin parallax
+    if (bg && !reduced) {
       window.gsap.to(bg, {
-        yPercent: reduced ? 6 : 18,
+        yPercent: 18,
         scale: 1.08,
         ease: "none",
         scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
@@ -534,7 +559,7 @@
     }
     if (inner) {
       window.gsap.to(inner, {
-        yPercent: reduced ? -8 : -28,
+        yPercent: reduced ? 0 : -28,
         opacity: 0.15,
         ease: "none",
         scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
@@ -611,9 +636,27 @@
       });
     });
 
-    if (closeBtn) closeBtn.addEventListener("click", function () { box.close(); });
+    // Cerrar también se anima: desaparecer de golpe se lee como un fallo.
+    // La salida es más rápida que la entrada.
+    var close = function () {
+      if (box.classList.contains("is-closing")) return;
+      if (reduced) { box.close(); return; }
+      box.classList.add("is-closing");
+      setTimeout(function () {
+        box.classList.remove("is-closing");
+        box.close();
+      }, 200);
+    };
+
+    if (closeBtn) closeBtn.addEventListener("click", close);
     box.addEventListener("click", function (e) {
-      if (e.target === box) box.close();
+      if (e.target === box) close();
+    });
+    // Escape lo cierra el navegador: se acompaña con la misma animación
+    box.addEventListener("cancel", function (e) {
+      if (reduced || box.classList.contains("is-closing")) return;
+      e.preventDefault();
+      close();
     });
   }
 
