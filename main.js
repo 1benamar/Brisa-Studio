@@ -17,33 +17,95 @@
   }
 
   /* ---------------------------------------------------------
-     Splash — CSS keyframe is the safety net, this is the fast path
+     Señal de intro: la precarga la emite al retirarse y la portada
+     entra a partir de ahí. Sin precarga (otras páginas) arranca ya.
+     --------------------------------------------------------- */
+  var introFired = false;
+  function fireIntro() {
+    if (introFired) return;
+    introFired = true;
+    document.dispatchEvent(new CustomEvent("brisa:intro"));
+  }
+  function onIntro(fn) {
+    var done = false;
+    var run = function () { if (done) return; done = true; fn(); };
+    if (introFired || !$("[data-splash]")) { run(); return; }
+    document.addEventListener("brisa:intro", run);
+    setTimeout(run, 4300);
+  }
+
+  /* ---------------------------------------------------------
+     Precarga: contador 000→100 ligado a la carga real, y cortinilla.
+     La animación CSS de seguridad la retira aunque este código falle.
      --------------------------------------------------------- */
   function initSplash() {
     var splash = $("[data-splash]");
     if (!splash) return;
-    var hide = function () { splash.classList.add("is-out"); };
-    if (document.readyState === "complete") setTimeout(hide, 500);
-    else window.addEventListener("load", function () { setTimeout(hide, 350); });
+    var count = $("[data-splash-count]", splash);
+    var bar = $("[data-splash-bar]", splash);
+    var minDur = reduced ? 450 : 1400;
+    var loaded = document.readyState === "complete";
+    var start = null;
+    var gone = false;
+
+    window.addEventListener("load", function () { loaded = true; });
+
+    function hide() {
+      if (gone) return;
+      gone = true;
+      splash.classList.add("is-out");
+      fireIntro();
+      setTimeout(function () { splash.style.display = "none"; }, 1500);
+    }
+
+    function frame(t) {
+      if (gone) return;
+      if (start === null) start = t;
+      var p = Math.min((t - start) / minDur, loaded ? 1 : 0.9);
+      var eased = 1 - Math.pow(1 - p, 3);
+      if (count) count.textContent = String(Math.round(eased * 100)).padStart(3, "0");
+      if (bar) bar.style.transform = "scaleX(" + eased.toFixed(3) + ")";
+      if (p >= 1) { setTimeout(hide, reduced ? 60 : 260); return; }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
     setTimeout(hide, 3800);
   }
 
   /* ---------------------------------------------------------
-     Nav — solid on scroll + mobile menu
+     Nav: sólida al bajar, se esconde al bajar y vuelve al subir,
+     barra de progreso de lectura y menú móvil.
      --------------------------------------------------------- */
   function initNav() {
     var nav = $("[data-nav]");
-    if (nav) {
-      var onScroll = function () {
-        if (window.scrollY > 70) nav.classList.add("is-scrolled");
-        else nav.classList.remove("is-scrolled");
-      };
-      onScroll();
-      window.addEventListener("scroll", onScroll, { passive: true });
-    }
-
     var burger = $("[data-burger]");
     var menu = $("[data-mobile-menu]");
+    var bar = $("[data-scroll-progress]");
+
+    if (nav) {
+      var lastY = window.scrollY;
+      var ticking = false;
+      var update = function () {
+        ticking = false;
+        var y = window.scrollY;
+        var dy = y - lastY;
+        nav.classList.toggle("is-scrolled", y > 70);
+        var menuOpen = burger && burger.getAttribute("aria-expanded") === "true";
+        if (y > 480 && dy > 4 && !menuOpen) nav.classList.add("is-hidden");
+        else if (dy < -4 || y <= 480) nav.classList.remove("is-hidden");
+        lastY = y;
+        if (bar) {
+          var max = document.documentElement.scrollHeight - window.innerHeight;
+          bar.style.transform = "scaleX(" + (max > 0 ? Math.min(y / max, 1) : 0).toFixed(4) + ")";
+        }
+      };
+      update();
+      window.addEventListener("scroll", function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+      }, { passive: true });
+      nav.addEventListener("focusin", function () { nav.classList.remove("is-hidden"); });
+    }
+
     if (!burger || !menu) return;
 
     var setOpen = function (open) {
@@ -51,6 +113,7 @@
       burger.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
       menu.setAttribute("aria-hidden", open ? "false" : "true");
       document.body.style.overflow = open ? "hidden" : "";
+      if (open && nav) nav.classList.remove("is-hidden");
     };
 
     burger.addEventListener("click", function () {
@@ -84,7 +147,8 @@
   }
 
   /* ---------------------------------------------------------
-     Reveal on scroll
+     Revelado al hacer scroll. Lo que entra a la vez se escalona.
+     Variantes por CSS: data-reveal (fundido), ="mask" (cortina), ="rise".
      --------------------------------------------------------- */
   function initReveals() {
     var els = $$("[data-reveal]");
@@ -95,32 +159,40 @@
       return;
     }
 
+    var reveal = function (el, delay) {
+      // El retardo va en una variable CSS para que lo hereden también la cortina
+      // (pseudo-elemento) y la imagen de dentro.
+      if (delay) el.style.setProperty("--reveal-delay", delay + "s");
+      el.classList.add("is-revealed");
+      // Se limpia para que no ralentice luego los efectos al pasar el ratón
+      setTimeout(function () { el.style.removeProperty("--reveal-delay"); }, 2400);
+    };
+
     var io = new IntersectionObserver(function (entries) {
+      var batch = 0;
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-revealed");
+        reveal(entry.target, Math.min(batch, 6) * 0.09);
+        batch++;
         io.unobserve(entry.target);
       });
-    }, { threshold: 0.01, rootMargin: "0px 0px -2% 0px" });
+    }, { threshold: 0.01, rootMargin: "0px 0px -4% 0px" });
 
     els.forEach(function (el) { io.observe(el); });
 
-    // Safety net: nothing stays invisible
+    // Red de seguridad: nada visible en pantalla se queda oculto
     setTimeout(function () {
       $$("[data-reveal]:not(.is-revealed)").forEach(function (el) {
-        if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add("is-revealed");
+        if (el.getBoundingClientRect().top < window.innerHeight) reveal(el, 0);
       });
     }, 6000);
   }
 
   /* ---------------------------------------------------------
-     Signature effect — line-art mark draws itself
+     La rosa de línea fina se dibuja sola
      --------------------------------------------------------- */
   function initDrawMarks() {
-    var marks = $$("[data-draw]");
-    if (!marks.length) return;
-
-    marks.forEach(function (svg) {
+    $$("[data-draw]").forEach(function (svg) {
       var paths = $$("path", svg);
       paths.forEach(function (path, i) {
         var len;
@@ -128,13 +200,18 @@
         if (!len) return;
         path.style.strokeDasharray = len;
         path.style.strokeDashoffset = len;
-        path.style.transition = "stroke-dashoffset " + (reduced ? 0.5 : 1.1) + "s var(--ease-soft) " +
-                                (i * (reduced ? 0.05 : 0.13)) + "s";
+        path.style.transition = "stroke-dashoffset " + (reduced ? 0.5 : 1.2) + "s cubic-bezier(0.65, 0, 0.35, 1) " +
+                                (i * (reduced ? 0.04 : 0.11)) + "s";
       });
 
       var draw = function () {
         paths.forEach(function (path) { path.style.strokeDashoffset = "0"; });
       };
+
+      if (svg.getAttribute("data-draw") === "intro") {
+        onIntro(function () { setTimeout(draw, reduced ? 0 : 420); });
+        return;
+      }
 
       if (typeof IntersectionObserver === "undefined") { draw(); return; }
       var io = new IntersectionObserver(function (entries) {
@@ -145,13 +222,12 @@
         });
       }, { threshold: 0.01 });
       io.observe(svg);
-
       setTimeout(draw, 6000);
     });
   }
 
   /* ---------------------------------------------------------
-     Custom cursor
+     Cursor: crece sobre lo interactivo y se vuelve lente sobre imágenes
      --------------------------------------------------------- */
   function initCursor() {
     var root = $("[data-cursor-root]");
@@ -180,14 +256,16 @@
       requestAnimationFrame(tick);
     })();
 
-    var HOVERABLES = "a[href], button, .card, .gallery-item, summary, input, textarea, select";
+    var HOVERABLES = "a[href], button, .card, .gallery-item, input, textarea, select, label";
+    var MEDIA = ".gallery-item, .about-figure";
     document.addEventListener("mouseover", function (e) {
-      if (e.target.closest && e.target.closest(HOVERABLES)) root.classList.add("is-interactive");
+      var t = e.target;
+      if (!t || !t.closest) return;
+      root.classList.toggle("is-interactive", !!t.closest(HOVERABLES));
+      root.classList.toggle("is-media", !!t.closest(MEDIA));
     });
-    document.addEventListener("mouseout", function (e) {
-      if (!e.target.closest || !e.target.closest(HOVERABLES)) return;
-      var to = e.relatedTarget;
-      if (!to || !to.closest || !to.closest(HOVERABLES)) root.classList.remove("is-interactive");
+    document.addEventListener("mouseleave", function () {
+      root.classList.remove("is-interactive", "is-media");
     });
   }
 
@@ -229,13 +307,106 @@
   }
 
   /* ---------------------------------------------------------
-     Split text (hero headline) — preserves <br> and <em>
+     Botones magnéticos (nunca en los de enviar formularios)
+     Usa la propiedad "translate" para no pisar el "transform" del hover.
      --------------------------------------------------------- */
-  function splitWords(el) {
-    el.setAttribute("aria-label", el.textContent.trim().replace(/\s+/g, " "));
+  function initMagnetic() {
+    if (!fineHover) return;
+    $$("[data-magnetic]").forEach(function (el) {
+      if (el.dataset.magBound) return;
+      el.dataset.magBound = "1";
+      var strength = parseFloat(el.getAttribute("data-magnetic")) || 0.25;
+      var tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
+      var loop = function () {
+        cx += (tx - cx) * 0.18;
+        cy += (ty - cy) * 0.18;
+        el.style.translate = cx.toFixed(2) + "px " + cy.toFixed(2) + "px";
+        raf = (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1) ? requestAnimationFrame(loop) : null;
+      };
+      el.addEventListener("mousemove", function (e) {
+        var r = el.getBoundingClientRect();
+        tx = (e.clientX - r.left - r.width / 2) * strength;
+        ty = (e.clientY - r.top - r.height / 2) * strength;
+        if (!raf) raf = requestAnimationFrame(loop);
+      });
+      el.addEventListener("mouseleave", function () {
+        tx = 0; ty = 0;
+        if (!raf) raf = requestAnimationFrame(loop);
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------
+     Texto de los botones que rueda al pasar el ratón.
+     Solo en botones de texto plano (no en los que llevan spinner).
+     --------------------------------------------------------- */
+  function initButtonRoll() {
+    $$(".btn").forEach(function (btn) {
+      if (btn.getAttribute("data-roll") || btn.children.length) return;
+      var text = btn.textContent.replace(/\s+/g, " ").trim();
+      if (!text) return;
+      btn.setAttribute("data-roll", "1");
+      btn.innerHTML = '<span class="btn-roll"><span>' + escHTML(text) +
+        '</span><span aria-hidden="true">' + escHTML(text) + "</span></span>";
+    });
+  }
+
+  /* ---------------------------------------------------------
+     La banda tipográfica se inclina según la velocidad del scroll
+     --------------------------------------------------------- */
+  function initMarquee() {
+    var band = $("[data-marquee-band]");
+    if (!band) return;
+    var lastY = window.scrollY;
+    var skew = 0, target = 0, raf = null;
+    var loop = function () {
+      skew += (target - skew) * 0.14;
+      target *= 0.86;
+      if (Math.abs(skew) < 0.02 && Math.abs(target) < 0.02) {
+        band.style.setProperty("--skew", "0deg");
+        raf = null;
+        return;
+      }
+      band.style.setProperty("--skew", skew.toFixed(2) + "deg");
+      raf = requestAnimationFrame(loop);
+    };
+    window.addEventListener("scroll", function () {
+      var y = window.scrollY;
+      var d = y - lastY;
+      lastY = y;
+      var max = reduced ? 3 : 8;
+      target = Math.max(-max, Math.min(max, d * 0.22));
+      if (!raf) raf = requestAnimationFrame(loop);
+    }, { passive: true });
+  }
+
+  /* ---------------------------------------------------------
+     Pulsar un servicio lleva al formulario con ese servicio elegido
+     --------------------------------------------------------- */
+  function initServiceRows() {
+    var select = $("#f-servicio");
+    if (!select) return;
+    $$("[data-service]").forEach(function (row) {
+      row.addEventListener("click", function () {
+        var val = row.getAttribute("data-service");
+        for (var i = 0; i < select.options.length; i++) {
+          if (select.options[i].text === val) { select.selectedIndex = i; break; }
+        }
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------
+     Partir texto en palabras conservando <br> y <em>.
+     El texto completo queda para lectores de pantalla en .sr-only.
+     --------------------------------------------------------- */
+  function splitInto(el, wordClass, masked) {
+    var full = el.textContent.trim().replace(/\s+/g, " ");
     var wrap = function (text) {
       return text.split(/(\s+)/).map(function (w) {
-        return /^\s*$/.test(w) ? w : '<span class="split-word" aria-hidden="true">' + escHTML(w) + "</span>";
+        if (/^\s*$/.test(w)) return w;
+        var word = '<span class="' + wordClass + '">' + escHTML(w) + "</span>";
+        return masked ? '<span class="split-mask">' + word + "</span>" : word;
       }).join("");
     };
     var html = Array.prototype.slice.call(el.childNodes).map(function (node) {
@@ -247,28 +418,80 @@
       }
       return "";
     }).join("");
-    el.innerHTML = html;
-    return $$(".split-word", el);
+    el.innerHTML = '<span class="sr-only">' + escHTML(full) + '</span><span aria-hidden="true">' + html + "</span>";
+    return $$("." + wordClass, el);
   }
 
+  /* ---------------------------------------------------------
+     Títulos: las palabras emergen tras una máscara.
+     data-split="hero" espera a la intro; el resto, a entrar en pantalla.
+     --------------------------------------------------------- */
   function initSplitText() {
     if (!window.gsap) return;
     $$("[data-split]").forEach(function (el) {
-      var parts = splitWords(el);
-      if (!parts.length) return;
-      // gsap.from: si GSAP fallara antes de crear el tween, el texto sigue visible
-      var tween = window.gsap.from(parts, {
-        yPercent: 105,
-        opacity: 0,
-        duration: reduced ? 0.5 : 1.1,
-        stagger: reduced ? 0.015 : 0.045,
-        ease: "expo.out",
-        delay: 0.35
-      });
-      // Red de seguridad: si el tween se queda a medias, se salta al final
+      if (el.getAttribute("data-split-done")) return;
+      el.setAttribute("data-split-done", "1");
+      var isHero = el.getAttribute("data-split") === "hero";
+      var words = splitInto(el, "split-word", true);
+      if (!words.length) return;
+      window.gsap.set(words, { yPercent: 118 });
+
+      var tween = null;
+      var play = function () {
+        if (tween) return;
+        tween = window.gsap.to(words, {
+          yPercent: 0,
+          duration: reduced ? 0.6 : (isHero ? 1.3 : 1.1),
+          stagger: reduced ? 0.01 : (isHero ? 0.055 : 0.035),
+          ease: "expo.out"
+        });
+      };
+
+      if (isHero) {
+        onIntro(function () { setTimeout(play, reduced ? 0 : 260); });
+        // Red de seguridad: pase lo que pase, el titular acaba visible
+        setTimeout(function () { play(); tween.progress(1); }, 6500);
+        return;
+      }
+
+      if (typeof IntersectionObserver === "undefined") { play(); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) { play(); io.disconnect(); }
+        });
+      }, { threshold: 0.01, rootMargin: "0px 0px -6% 0px" });
+      io.observe(el);
       setTimeout(function () {
-        if (tween && tween.progress() < 1) tween.progress(1);
-      }, 5000);
+        if (!tween && el.getBoundingClientRect().top < window.innerHeight) play();
+      }, 6000);
+    });
+  }
+
+  /* ---------------------------------------------------------
+     Intro de la portada: la imagen se asienta y los textos entran
+     escalonados en cuanto se levanta la cortinilla.
+     --------------------------------------------------------- */
+  function initIntro() {
+    var root = document.documentElement;
+    if (!window.gsap) { root.classList.remove("intro"); return; }
+    var items = $$("[data-intro]").filter(function (el) { return !el.hasAttribute("data-split"); });
+    var heroImg = $(".hero-bg img");
+
+    if (items.length) window.gsap.set(items, { y: 30, opacity: 0 });
+    if (heroImg) window.gsap.set(heroImg, { scale: reduced ? 1.1 : 1.32 });
+    root.classList.remove("intro");
+
+    onIntro(function () {
+      var tl = window.gsap.timeline({ defaults: { ease: "expo.out" } });
+      if (heroImg) tl.to(heroImg, { scale: 1.04, duration: reduced ? 1 : 2.8 }, 0);
+      if (items.length) {
+        tl.to(items, {
+          y: 0, opacity: 1,
+          duration: reduced ? 0.6 : 1.3,
+          stagger: reduced ? 0.03 : 0.1
+        }, reduced ? 0 : 0.18);
+      }
+      setTimeout(function () { tl.progress(1); }, 6000);
     });
   }
 
@@ -295,6 +518,47 @@
         scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
       });
     }
+  }
+
+  /* ---------------------------------------------------------
+     Manifiesto: cada palabra se enciende al avanzar con el scroll
+     --------------------------------------------------------- */
+  function initManifesto() {
+    var el = $("[data-manifesto]");
+    if (!el || !window.gsap || !window.ScrollTrigger) return;
+    var words = splitInto(el, "mf-word", false);
+    if (!words.length) return;
+    window.gsap.fromTo(words, { opacity: 0.14 }, {
+      opacity: 1,
+      ease: "none",
+      stagger: 0.12,
+      scrollTrigger: { trigger: el, start: "top 85%", end: "bottom 45%", scrub: 0.5 }
+    });
+  }
+
+  /* ---------------------------------------------------------
+     Proceso: el raíl se llena con el scroll y cada paso se activa
+     --------------------------------------------------------- */
+  function initSteps() {
+    var wrap = $("[data-steps]");
+    if (!wrap || !window.gsap || !window.ScrollTrigger) return;
+    var fill = $("[data-steps-fill]", wrap);
+    wrap.classList.add("is-live");
+    if (fill) {
+      window.gsap.fromTo(fill, { scaleY: 0 }, {
+        scaleY: 1,
+        ease: "none",
+        scrollTrigger: { trigger: wrap, start: "top 70%", end: "bottom 65%", scrub: 0.4 }
+      });
+    }
+    $$(".step", wrap).forEach(function (step) {
+      window.ScrollTrigger.create({
+        trigger: step,
+        start: "top 70%",
+        onEnter: function () { step.classList.add("is-active"); },
+        onLeaveBack: function () { step.classList.remove("is-active"); }
+      });
+    });
   }
 
   /* ---------------------------------------------------------
@@ -518,6 +782,8 @@
         }
       }
 
+      $$("[data-open-dot]").forEach(function (dot) { dot.classList.toggle("is-shut", !isOpen); });
+
       badge.hidden = false;
       badge.textContent = isOpen ? "Abierto ahora" : "Cerrado ahora";
       badge.classList.toggle("is-open", isOpen);
@@ -616,10 +882,14 @@
     safe(initSplash, "initSplash");
     safe(initNav, "initNav");
     safe(initSmoothAnchors, "initSmoothAnchors");
+    safe(initButtonRoll, "initButtonRoll");
     safe(initReveals, "initReveals");
     safe(initDrawMarks, "initDrawMarks");
     safe(initCursor, "initCursor");
     safe(initTilt, "initTilt");
+    safe(initMagnetic, "initMagnetic");
+    safe(initMarquee, "initMarquee");
+    safe(initServiceRows, "initServiceRows");
     safe(initLightbox, "initLightbox");
     safe(setupContactForm, "setupContactForm");
     safe(setupNewsletterForm, "setupNewsletterForm");
@@ -630,9 +900,17 @@
         try { window.gsap.registerPlugin(window.ScrollTrigger); } catch (err) {}
       }
       safe(initSplitText, "initSplitText");
+      safe(initIntro, "initIntro");
       safe(initHeroParallax, "initHeroParallax");
+      safe(initManifesto, "initManifesto");
+      safe(initSteps, "initSteps");
+      if (window.ScrollTrigger) {
+        window.addEventListener("load", function () { window.ScrollTrigger.refresh(); });
+      }
     }
 
+    // Pase lo que pase arriba, la portada nunca se queda oculta
+    document.documentElement.classList.remove("intro");
     document.documentElement.classList.add("is-ready");
   }
 

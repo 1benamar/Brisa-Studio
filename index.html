@@ -23,10 +23,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" />
 
-  <link rel="stylesheet" href="styles.css?v=20260911" />
+  <link rel="stylesheet" href="styles.css?v=20260917" />
 
-  <!-- Marca que hay JS: sin él, el contenido se muestra sin animaciones de entrada -->
-  <script>document.documentElement.classList.add("js");</script>
+  <!-- "js": hay JavaScript. "intro": oculta la portada hasta que arranca la
+       animación de entrada (con red de seguridad en CSS si el JS fallara). -->
+  <script>document.documentElement.classList.add("js", "intro");</script>
 
   <!-- Ficha de negocio local para Google. Añade "url" con el dominio al publicar. -->
   <script type="application/ld+json">
@@ -60,23 +61,41 @@
 <body>
   <a class="skip-link" href="#main">Saltar al contenido</a>
 
-  <!-- Splash -->
+  <!-- Símbolo de la rosa, reutilizable con <use> -->
+  <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <symbol id="rose" viewBox="0 0 120 150">
+      <path d="M60 22c-9 4-13.5 12-9.5 19.5C54 48.5 62 50.5 65 47c3-3.5.5-9.5-4.5-11" />
+      <path d="M60 22c9 4 13.5 12 9.5 19.5C66 48.5 58 50.5 55 47c-3-3.5-.5-9.5 4.5-11" />
+      <path d="M43 33c-8 7-9 18-2 25 5 5 13 5 16 1" />
+      <path d="M77 33c8 7 9 18 2 25-5 5-13 5-16 1" />
+      <path d="M60 60v70" />
+      <path d="M60 84c-7-6-16-6-22-1 4 8 14 11 22 6" />
+      <path d="M60 102c7-6 16-6 22-1-4 8-14 11-22 6" />
+    </symbol>
+  </svg>
+
+  <!-- Precarga -->
   <div class="splash" data-splash aria-hidden="true">
     <div class="splash-inner">
-      <svg class="mark mark-splash" viewBox="0 0 120 150" fill="none" aria-hidden="true">
-        <path d="M60 22c-9 4-13.5 12-9.5 19.5C54 48.5 62 50.5 65 47c3-3.5.5-9.5-4.5-11" />
-        <path d="M60 22c9 4 13.5 12 9.5 19.5C66 48.5 58 50.5 55 47c-3-3.5-.5-9.5 4.5-11" />
-        <path d="M43 33c-8 7-9 18-2 25 5 5 13 5 16 1" />
-        <path d="M77 33c8 7 9 18 2 25-5 5-13 5-16 1" />
-        <path d="M60 60v70" />
-        <path d="M60 84c-7-6-16-6-22-1 4 8 14 11 22 6" />
-        <path d="M60 102c7-6 16-6 22-1-4 8-14 11-22 6" />
+      <svg class="mark mark-splash" viewBox="0 0 120 150" fill="none">
+        <path pathLength="1" d="M60 22c-9 4-13.5 12-9.5 19.5C54 48.5 62 50.5 65 47c3-3.5.5-9.5-4.5-11" />
+        <path pathLength="1" d="M60 22c9 4 13.5 12 9.5 19.5C66 48.5 58 50.5 55 47c-3-3.5-.5-9.5 4.5-11" />
+        <path pathLength="1" d="M43 33c-8 7-9 18-2 25 5 5 13 5 16 1" />
+        <path pathLength="1" d="M77 33c8 7 9 18 2 25-5 5-13 5-16 1" />
+        <path pathLength="1" d="M60 60v70" />
+        <path pathLength="1" d="M60 84c-7-6-16-6-22-1 4 8 14 11 22 6" />
+        <path pathLength="1" d="M60 102c7-6 16-6 22-1-4 8-14 11-22 6" />
       </svg>
       <span class="splash-word">Brisa</span>
     </div>
+    <div class="splash-foot">
+      <span class="splash-label">Tattoo Studio · Girona</span>
+      <span class="splash-count" data-splash-count>000</span>
+      <span class="splash-bar"><span data-splash-bar></span></span>
+    </div>
   </div>
 
-  <!-- Custom cursor -->
+  <!-- Cursor -->
   <div class="cursor" data-cursor-root aria-hidden="true">
     <span class="cursor-dot"></span>
     <span class="cursor-ring"></span>
@@ -84,17 +103,9 @@
 
   <!-- Nav -->
   <header class="nav" data-nav>
-    <div class="nav-inner">
+    <div class="nav-inner" data-intro>
       <a class="nav-brand" href="#inicio">
-        <svg class="mark nav-brand-mark" viewBox="0 0 120 150" fill="none" aria-hidden="true">
-          <path d="M60 22c-9 4-13.5 12-9.5 19.5C54 48.5 62 50.5 65 47c3-3.5.5-9.5-4.5-11" />
-          <path d="M60 22c9 4 13.5 12 9.5 19.5C66 48.5 58 50.5 55 47c-3-3.5-.5-9.5 4.5-11" />
-          <path d="M43 33c-8 7-9 18-2 25 5 5 13 5 16 1" />
-          <path d="M77 33c8 7 9 18 2 25-5 5-13 5-16 1" />
-          <path d="M60 60v70" />
-          <path d="M60 84c-7-6-16-6-22-1 4 8 14 11 22 6" />
-          <path d="M60 102c7-6 16-6 22-1-4 8-14 11-22 6" />
-        </svg>
+        <svg class="mark nav-brand-mark" viewBox="0 0 120 150" fill="none" aria-hidden="true"><use href="#rose" /></svg>
         <span class="nav-brand-text">
           <span class="nav-brand-name">Brisa</span>
           <span class="nav-brand-sub">Tattoo Studio</span>
@@ -107,15 +118,16 @@
         <a class="nav-link" href="#artistas">Artistas</a>
       </nav>
       <div class="nav-actions">
-        <a class="btn btn-primary btn-sm" href="#contacto">Reservar cita</a>
+        <a class="btn btn-primary btn-sm" href="#contacto" data-magnetic="0.25">Reservar cita</a>
         <button class="nav-burger" type="button" data-burger aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-movil">
           <span></span><span></span>
         </button>
       </div>
     </div>
+    <span class="nav-progress" data-scroll-progress aria-hidden="true"></span>
   </header>
 
-  <!-- Mobile menu -->
+  <!-- Menú móvil -->
   <div class="nav-mobile" id="menu-movil" data-mobile-menu aria-hidden="true">
     <nav aria-label="Navegación móvil">
       <a href="#estudio">Estudio</a>
@@ -143,9 +155,9 @@
       <div class="hero-grain" aria-hidden="true"></div>
 
       <div class="hero-inner">
-        <p class="kicker">Estudio de tatuaje · Girona</p>
+        <p class="kicker" data-intro>Estudio de tatuaje · Girona</p>
 
-        <svg class="mark mark-hero" viewBox="0 0 120 150" fill="none" aria-hidden="true" data-draw>
+        <svg class="mark mark-hero" viewBox="0 0 120 150" fill="none" aria-hidden="true" data-draw="intro">
           <path d="M60 22c-9 4-13.5 12-9.5 19.5C54 48.5 62 50.5 65 47c3-3.5.5-9.5-4.5-11" />
           <path d="M60 22c9 4 13.5 12 9.5 19.5C66 48.5 58 50.5 55 47c-3-3.5-.5-9.5 4.5-11" />
           <path d="M43 33c-8 7-9 18-2 25 5 5 13 5 16 1" />
@@ -155,24 +167,24 @@
           <path d="M60 102c7-6 16-6 22-1-4 8-14 11-22 6" />
         </svg>
 
-        <h1 class="hero-title" data-split="words">
+        <h1 class="hero-title" data-split="hero" data-intro>
           Cada piel es un lienzo distinto.<br />
           <em>Cada trazo, una decisión.</em>
         </h1>
 
-        <p class="hero-sub">
+        <p class="hero-sub" data-intro>
           Tatuaje, piercing y micropigmentación en el centro de Girona. Diseño propio,
           material certificado y un espacio tranquilo.
         </p>
 
         <div class="hero-foot">
-          <p class="hero-meta">
-            <span class="hero-dot" aria-hidden="true"></span>
+          <p class="hero-meta" data-intro>
+            <span class="hero-dot" data-open-dot aria-hidden="true"></span>
             Carrer Dr. Antic Roca, 20 · Lunes a sábado, 11:00–19:00
           </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#contacto">Reservar cita</a>
-            <a class="btn btn-ghost" href="#portfolio">Ver portfolio</a>
+          <div class="hero-actions" data-intro>
+            <a class="btn btn-primary" href="#contacto" data-magnetic="0.3">Reservar cita</a>
+            <a class="btn btn-ghost" href="#portfolio" data-magnetic="0.3">Ver portfolio</a>
           </div>
         </div>
       </div>
@@ -182,12 +194,58 @@
       </a>
     </section>
 
+    <!-- ============ BANDA TIPOGRÁFICA ============ -->
+    <div class="marquee-band" data-marquee-band aria-hidden="true">
+      <div class="marquee-row">
+        <div class="marquee-track">
+          <span>Realismo</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Blackwork</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Fine line</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Tradicional</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Piercing</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Micropigmentación</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Eliminación láser</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+        </div>
+        <div class="marquee-track">
+          <span>Realismo</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Blackwork</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Fine line</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Tradicional</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Piercing</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Micropigmentación</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Eliminación láser</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+        </div>
+      </div>
+      <div class="marquee-row marquee-row-rev">
+        <div class="marquee-track">
+          <span>Diseño propio</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Cita previa</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Material estéril</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Girona</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Diseño propio</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Cita previa</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Material estéril</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Girona</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+        </div>
+        <div class="marquee-track">
+          <span>Diseño propio</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Cita previa</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Material estéril</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Girona</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Diseño propio</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Cita previa</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Material estéril</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span>Girona</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+        </div>
+      </div>
+    </div>
+
     <!-- ============ ESTUDIO ============ -->
     <section class="section section-about" id="estudio">
       <div class="container">
         <header class="section-head" data-reveal>
           <p class="kicker">01 · El estudio</p>
-          <h2 class="section-title">
+          <h2 class="section-title" data-split>
             Un sitio pequeño donde el tiempo <em>se dedica a la pieza</em>.
           </h2>
         </header>
@@ -205,10 +263,15 @@
           </p>
         </div>
 
-        <figure class="about-figure" data-reveal>
+        <figure class="about-figure" data-reveal="mask">
           <img src="assets/img/about.jpg" alt="Manos con guantes tatuando un antebrazo con el estencil aún visible" loading="lazy" decoding="async" />
           <figcaption>Guantes nuevos, agujas nuevas y el estencil revisado antes de la primera línea.</figcaption>
         </figure>
+
+        <p class="manifesto" data-manifesto>
+          No hacemos tatuajes en serie. Cada pieza se dibuja para una sola piel, se habla
+          antes de empezar y se acompaña hasta que está curada.
+        </p>
 
         <div class="pillars">
           <article class="pillar" data-reveal>
@@ -244,77 +307,78 @@
       <div class="container">
         <header class="section-head" data-reveal>
           <p class="kicker">02 · Servicios</p>
-          <h2 class="section-title">Lo que hacemos, <em>y cómo lo hacemos</em>.</h2>
+          <h2 class="section-title" data-split>Lo que hacemos, <em>y cómo lo hacemos</em>.</h2>
           <p class="section-intro">
             Cuatro estilos de tatuaje, más piercing, micropigmentación y eliminación láser.
             Los precios son orientativos: el presupuesto final se cierra en la consulta.
           </p>
         </header>
 
-        <div class="services">
-          <article class="card service" data-reveal data-tilt>
-            <span class="service-icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none"><path d="M16 4c4 6 7 9.5 7 14a7 7 0 0 1-14 0c0-4.5 3-8 7-14Z"/><path d="M16 17.5a4 4 0 0 0 4 4"/></svg>
-            </span>
-            <h3>Realismo</h3>
-            <p>Retratos, animales y detalle fotográfico en negro y grises o color, con sombras trabajadas capa a capa.</p>
-            <p class="service-price">Desde 90 € / hora</p>
-          </article>
-
-          <article class="card service" data-reveal data-tilt>
-            <span class="service-icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none"><path d="M6 24 16 6l10 18Z"/><path d="M11 24h10"/></svg>
-            </span>
-            <h3>Blackwork</h3>
-            <p>Tinta sólida, contraste y geometría. Piezas con peso gráfico que se leen bien de lejos y aguantan el tiempo.</p>
-            <p class="service-price">Desde 80 € / hora</p>
-          </article>
-
-          <article class="card service" data-reveal data-tilt>
-            <span class="service-icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none"><path d="M4 22c6-10 10-14 24-14"/><path d="M4 26c5-4 9-6 14-6"/></svg>
-            </span>
-            <h3>Fine line</h3>
-            <p>Trazo fino y limpio para piezas pequeñas, escritura y botánica delicada. Discreto, pero nunca frágil.</p>
-            <p class="service-price">Desde 70 €</p>
-          </article>
-
-          <article class="card service" data-reveal data-tilt>
-            <span class="service-icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none"><path d="M16 4v24"/><path d="M9 11h14"/><path d="M16 28c-5-3-7-7-7-11"/><path d="M16 28c5-3 7-7 7-11"/></svg>
-            </span>
-            <h3>Tradicional</h3>
-            <p>Línea gruesa, color plano y motivos clásicos: rosas, golondrinas, daggers. Estilo que no pasa de moda.</p>
-            <p class="service-price">Desde 75 € / hora</p>
-          </article>
-
-          <article class="card service" data-reveal data-tilt>
-            <span class="service-icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="18" r="9"/><circle cx="16" cy="7" r="2.5"/><path d="M16 9.5v-.5"/></svg>
-            </span>
-            <h3>Piercing</h3>
-            <p>Perforación con aguja, joyería de titanio implantable y explicación de cuidados antes de salir por la puerta.</p>
-            <p class="service-price">Desde 25 € · joya incluida</p>
-          </article>
-
-          <article class="card service" data-reveal data-tilt>
-            <span class="service-icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none"><path d="M4 18c4-7 10-10 24-8"/><path d="M7 24c4-4 9-5 18-4"/><path d="M22 8l3-3"/></svg>
-            </span>
-            <h3>Micropigmentación</h3>
-            <p>Cejas pelo a pelo, labios y camuflaje de cicatrices con pigmentos de larga duración y retoque incluido.</p>
-            <p class="service-price">Desde 120 € · retoque incluido</p>
-          </article>
-
-          <article class="card service" data-reveal data-tilt>
-            <span class="service-icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none"><path d="M16 3v9"/><path d="M9 6l3 6"/><path d="M23 6l-3 6"/><path d="M11 15h10l-2 14h-6Z"/></svg>
-            </span>
-            <h3>Eliminación láser</h3>
-            <p>Borrado y aclarado de tatuajes con láser Q-switched, por sesiones espaciadas y con valoración previa gratuita.</p>
-            <p class="service-price">Valoración gratuita</p>
-          </article>
-        </div>
+        <ol class="svc-list">
+          <li data-reveal>
+            <a class="svc" href="#contacto" data-service="Tatuaje · realismo">
+              <span class="svc-num">01</span>
+              <span class="svc-name">Realismo</span>
+              <span class="svc-desc">Retratos, animales y detalle fotográfico en negro y grises o color, con sombras trabajadas capa a capa.</span>
+              <span class="svc-price">Desde 90 € / hora</span>
+              <span class="svc-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li data-reveal>
+            <a class="svc" href="#contacto" data-service="Tatuaje · blackwork">
+              <span class="svc-num">02</span>
+              <span class="svc-name">Blackwork</span>
+              <span class="svc-desc">Tinta sólida, contraste y geometría. Piezas con peso gráfico que se leen bien de lejos y aguantan el tiempo.</span>
+              <span class="svc-price">Desde 80 € / hora</span>
+              <span class="svc-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li data-reveal>
+            <a class="svc" href="#contacto" data-service="Tatuaje · fine line">
+              <span class="svc-num">03</span>
+              <span class="svc-name">Fine line</span>
+              <span class="svc-desc">Trazo fino y limpio para piezas pequeñas, escritura y botánica delicada. Discreto, pero nunca frágil.</span>
+              <span class="svc-price">Desde 70 €</span>
+              <span class="svc-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li data-reveal>
+            <a class="svc" href="#contacto" data-service="Tatuaje · tradicional">
+              <span class="svc-num">04</span>
+              <span class="svc-name">Tradicional</span>
+              <span class="svc-desc">Línea gruesa, color plano y motivos clásicos: rosas, golondrinas, daggers. Estilo que no pasa de moda.</span>
+              <span class="svc-price">Desde 75 € / hora</span>
+              <span class="svc-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li data-reveal>
+            <a class="svc" href="#contacto" data-service="Piercing">
+              <span class="svc-num">05</span>
+              <span class="svc-name">Piercing</span>
+              <span class="svc-desc">Perforación con aguja, joyería de titanio implantable y explicación de cuidados antes de salir por la puerta.</span>
+              <span class="svc-price">Desde 25 € · joya incluida</span>
+              <span class="svc-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li data-reveal>
+            <a class="svc" href="#contacto" data-service="Micropigmentación">
+              <span class="svc-num">06</span>
+              <span class="svc-name">Micropigmentación</span>
+              <span class="svc-desc">Cejas pelo a pelo, labios y camuflaje de cicatrices con pigmentos de larga duración y retoque incluido.</span>
+              <span class="svc-price">Desde 120 € · retoque incluido</span>
+              <span class="svc-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li data-reveal>
+            <a class="svc" href="#contacto" data-service="Eliminación láser">
+              <span class="svc-num">07</span>
+              <span class="svc-name">Eliminación láser</span>
+              <span class="svc-desc">Borrado y aclarado de tatuajes con láser Q-switched, por sesiones espaciadas y con valoración previa gratuita.</span>
+              <span class="svc-price">Valoración gratuita</span>
+              <span class="svc-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        </ol>
       </div>
     </section>
 
@@ -323,7 +387,7 @@
       <div class="container">
         <header class="section-head" data-reveal>
           <p class="kicker">03 · Portfolio</p>
-          <h2 class="section-title">Piezas recientes <em>del estudio</em>.</h2>
+          <h2 class="section-title" data-split>Piezas recientes <em>del estudio</em>.</h2>
           <p class="section-intro">
             Una selección de estilos. En Instagram publicamos el trabajo del día a día,
             incluidos los procesos y los diseños disponibles.
@@ -332,27 +396,27 @@
       </div>
 
       <div class="gallery" data-gallery>
-        <figure class="gallery-item gallery-tall" data-reveal>
+        <figure class="gallery-item gallery-tall" data-reveal="mask">
           <img src="assets/img/gallery-7.jpg" alt="Tatuaje de espalda completa con linework en negro" loading="lazy" decoding="async" />
           <figcaption><span>Blackwork</span> Espalda completa, linework</figcaption>
         </figure>
-        <figure class="gallery-item gallery-tall" data-reveal>
+        <figure class="gallery-item gallery-tall" data-reveal="mask">
           <img src="assets/img/gallery-8.jpg" alt="Pierna tatuada al completo en estilo tradicional a color" loading="lazy" decoding="async" />
           <figcaption><span>Tradicional</span> Pierna completa en color</figcaption>
         </figure>
-        <figure class="gallery-item" data-reveal>
+        <figure class="gallery-item" data-reveal="mask">
           <img src="assets/img/gallery-1.jpg" alt="Tatuaje floral pequeño en el pie" loading="lazy" decoding="async" />
           <figcaption><span>Color</span> Floral en el pie</figcaption>
         </figure>
-        <figure class="gallery-item gallery-ink" data-reveal>
+        <figure class="gallery-item gallery-ink" data-reveal="mask">
           <img src="assets/img/gallery-4.jpg" alt="Boceto de rosa dibujado a mano para tatuaje" loading="lazy" decoding="async" />
           <figcaption><span>Diseño</span> Boceto a mano</figcaption>
         </figure>
-        <figure class="gallery-item gallery-wide" data-reveal>
+        <figure class="gallery-item gallery-wide" data-reveal="mask">
           <img src="assets/img/gallery-2.jpg" alt="Brazo tatuado completo con motivos florales en color" loading="lazy" decoding="async" />
           <figcaption><span>Color</span> Brazo completo floral</figcaption>
         </figure>
-        <figure class="gallery-item" data-reveal>
+        <figure class="gallery-item" data-reveal="mask">
           <img src="assets/img/service-tradicional.jpg" alt="Láminas de flash tradicional enmarcadas en el estudio" loading="lazy" decoding="async" />
           <figcaption><span>Flash</span> Láminas del estudio</figcaption>
         </figure>
@@ -372,11 +436,12 @@
       <div class="container">
         <header class="section-head" data-reveal>
           <p class="kicker">04 · Artistas</p>
-          <h2 class="section-title">Tres manos, <em>tres formas de dibujar</em>.</h2>
+          <h2 class="section-title" data-split>Tres manos, <em>tres formas de dibujar</em>.</h2>
         </header>
 
         <div class="team">
           <article class="card artist" data-reveal data-tilt>
+            <span class="artist-ghost" aria-hidden="true">L</span>
             <span class="artist-avatar" aria-hidden="true">L</span>
             <h3>Laura</h3>
             <p class="artist-role">Realismo · Blackwork</p>
@@ -386,6 +451,7 @@
             </p>
           </article>
           <article class="card artist" data-reveal data-tilt>
+            <span class="artist-ghost" aria-hidden="true">P</span>
             <span class="artist-avatar" aria-hidden="true">P</span>
             <h3>Paula</h3>
             <p class="artist-role">Fine line · Micropigmentación</p>
@@ -395,6 +461,7 @@
             </p>
           </article>
           <article class="card artist" data-reveal data-tilt>
+            <span class="artist-ghost" aria-hidden="true">S</span>
             <span class="artist-avatar" aria-hidden="true">S</span>
             <h3>Sofia</h3>
             <p class="artist-role">Tradicional · Piercing</p>
@@ -412,51 +479,54 @@
       <div class="container">
         <header class="section-head" data-reveal>
           <p class="kicker">05 · Proceso y cuidados</p>
-          <h2 class="section-title">De la idea a la piel <em>ya curada</em>.</h2>
+          <h2 class="section-title" data-split>De la idea a la piel <em>ya curada</em>.</h2>
         </header>
 
-        <ol class="steps">
-          <li class="step" data-reveal>
-            <span class="step-num">01</span>
-            <div class="step-body">
-              <h3>Consulta y boceto</h3>
-              <p>
-                Nos cuentas la idea, el tamaño y la zona. Miramos referencias, hablamos de
-                presupuesto y dibujamos una primera propuesta. Sin compromiso.
-              </p>
-            </div>
-          </li>
-          <li class="step" data-reveal>
-            <span class="step-num">02</span>
-            <div class="step-body">
-              <h3>La sesión</h3>
-              <p>
-                Preparamos la zona, colocamos el estencil y ajustamos lo que haga falta antes
-                de empezar. Material estéril de un solo uso y descansos cuando los pidas.
-              </p>
-            </div>
-          </li>
-          <li class="step" data-reveal>
-            <span class="step-num">03</span>
-            <div class="step-body">
-              <h3>Las dos primeras semanas</h3>
-              <p>
-                Lavado suave con jabón neutro dos veces al día, crema fina, ropa holgada y
-                nada de piscina, playa ni sol directo. Te lo damos por escrito.
-              </p>
-            </div>
-          </li>
-          <li class="step" data-reveal>
-            <span class="step-num">04</span>
-            <div class="step-body">
-              <h3>Revisión al mes</h3>
-              <p>
-                Cuando la piel está curada la vemos juntas: si algún punto necesita repaso,
-                el primer retoque va incluido.
-              </p>
-            </div>
-          </li>
-        </ol>
+        <div class="steps-wrap" data-steps>
+          <span class="steps-rail" aria-hidden="true"><span class="steps-fill" data-steps-fill></span></span>
+          <ol class="steps">
+            <li class="step" data-reveal>
+              <span class="step-num">01</span>
+              <div class="step-body">
+                <h3>Consulta y boceto</h3>
+                <p>
+                  Nos cuentas la idea, el tamaño y la zona. Miramos referencias, hablamos de
+                  presupuesto y dibujamos una primera propuesta. Sin compromiso.
+                </p>
+              </div>
+            </li>
+            <li class="step" data-reveal>
+              <span class="step-num">02</span>
+              <div class="step-body">
+                <h3>La sesión</h3>
+                <p>
+                  Preparamos la zona, colocamos el estencil y ajustamos lo que haga falta antes
+                  de empezar. Material estéril de un solo uso y descansos cuando los pidas.
+                </p>
+              </div>
+            </li>
+            <li class="step" data-reveal>
+              <span class="step-num">03</span>
+              <div class="step-body">
+                <h3>Las dos primeras semanas</h3>
+                <p>
+                  Lavado suave con jabón neutro dos veces al día, crema fina, ropa holgada y
+                  nada de piscina, playa ni sol directo. Te lo damos por escrito.
+                </p>
+              </div>
+            </li>
+            <li class="step" data-reveal>
+              <span class="step-num">04</span>
+              <div class="step-body">
+                <h3>Revisión al mes</h3>
+                <p>
+                  Cuando la piel está curada la vemos juntas: si algún punto necesita repaso,
+                  el primer retoque va incluido.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
 
         <svg class="mark mark-divider" viewBox="0 0 120 150" fill="none" aria-hidden="true" data-draw>
           <path d="M60 22c-9 4-13.5 12-9.5 19.5C54 48.5 62 50.5 65 47c3-3.5.5-9.5-4.5-11" />
@@ -475,7 +545,7 @@
       <div class="container">
         <header class="section-head" data-reveal>
           <p class="kicker">06 · Opiniones</p>
-          <h2 class="section-title">Lo que cuentan <em>al salir</em>.</h2>
+          <h2 class="section-title" data-split>Lo que cuentan <em>al salir</em>.</h2>
         </header>
 
         <div class="quotes">
@@ -510,7 +580,7 @@
       <div class="container">
         <header class="section-head" data-reveal>
           <p class="kicker">07 · Reservar</p>
-          <h2 class="section-title">Cuéntanos la idea <em>y te contestamos</em>.</h2>
+          <h2 class="section-title" data-split>Cuéntanos la idea <em>y te contestamos</em>.</h2>
         </header>
 
         <div class="contact-grid">
@@ -620,7 +690,7 @@
           </aside>
         </div>
 
-        <div class="map" data-reveal>
+        <div class="map" data-reveal="mask">
           <iframe
             title="Mapa de Brisa Tattoo Studio en Girona"
             src="https://www.google.com/maps?q=Carrer%20Dr.%20Antic%20Roca%2020%2C%2017003%20Girona&output=embed"
@@ -635,13 +705,13 @@
       <div class="container news-band-inner">
         <div class="news-band-text" data-reveal>
           <p class="kicker">Boletín del estudio</p>
-          <h2 class="news-band-title">Recibe los huecos libres <em>antes que nadie</em>.</h2>
+          <h2 class="news-band-title" data-split>Recibe los huecos libres <em>antes que nadie</em>.</h2>
           <p class="news-band-sub">
             Un correo al mes con las citas que se liberan, el flash nuevo y las fechas de
             las artistas invitadas.
           </p>
         </div>
-        <a class="btn btn-primary news-band-btn" href="newsletter.html" data-reveal>Apuntarme al boletín</a>
+        <a class="btn btn-primary news-band-btn" href="newsletter.html" data-reveal data-magnetic="0.3">Apuntarme al boletín</a>
       </div>
     </section>
   </main>
@@ -667,6 +737,11 @@
         <span>Carrer Dr. Antic Roca, 20 · 17003 Girona</span>
       </div>
     </div>
+
+    <div class="footer-mark" aria-hidden="true" data-reveal="rise">
+      <span>Brisa</span>
+    </div>
+
     <div class="container footer-legal">
       <p>© 2026 Brisa Tattoo Studio. Todos los derechos reservados.</p>
       <p class="footer-credits">
@@ -674,6 +749,7 @@
         · Imágenes de muestra bajo licencia Creative Commons.
         <a class="link-underline" href="creditos.html">Créditos fotográficos →</a>
       </p>
+      <a class="footer-top link-underline" href="#inicio">Volver arriba ↑</a>
     </div>
   </footer>
 
@@ -694,7 +770,7 @@
 
   <script defer src="lib/gsap.min.js"></script>
   <script defer src="lib/ScrollTrigger.min.js"></script>
-  <script defer src="lib/manifest.js?v=20260911"></script>
-  <script defer src="main.js?v=20260911"></script>
+  <script defer src="lib/manifest.js?v=20260917"></script>
+  <script defer src="main.js?v=20260917"></script>
 </body>
 </html>
