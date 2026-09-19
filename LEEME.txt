@@ -15,19 +15,25 @@ QUÉ HAY QUE CAMBIAR ANTES DE PUBLICAR
 1. FOTOS: las imágenes de assets/img/ son de muestra (Creative Commons, ver
    creditos.html). Sustitúyelas por fotos reales del estudio y de los trabajos
    manteniendo los mismos nombres de archivo:
-     hero.jpg               → portada (horizontal, algo oscura funciona mejor)
-     about.jpg              → sección "El estudio" (formato ancho 16:8)
-     gallery-7.jpg          → portfolio, tarjeta vertical (izquierda)
-     gallery-8.jpg          → portfolio, tarjeta vertical (centro)
-     gallery-1.jpg          → portfolio, tarjeta cuadrada
-     gallery-4.jpg          → portfolio, boceto sobre fondo blanco
-                              (esta tarjeta se invierte a línea blanca; si
-                              pones una foto normal, quita la clase
-                              "gallery-ink" en index.html)
-     gallery-2.jpg          → portfolio, tarjeta ancha
-     service-tradicional.jpg→ portfolio, tarjeta cuadrada
-   Los textos de cada tarjeta (estilo + descripción) están en index.html,
-   dentro de <figcaption>.
+     gallery-7.jpg          → portada (1.ª pieza del arco) y portfolio
+     gallery-2.jpg          → portada (2.ª pieza del arco) y portfolio
+     gallery-8.jpg          → portada (3.ª pieza del arco) y portfolio
+     realismo.jpg           → portada (4.ª pieza del arco), portfolio y
+                              foto que acompaña al ratón en "Realismo"
+                              (las del arco funcionan mejor en vertical)
+     gallery-4.jpg          → boceto sobre fondo blanco: círculo de la
+                              portada, llamada final y portfolio (ahí se
+                              invierte a línea blanca; si pones una foto
+                              normal, quita la clase "gallery-ink")
+     about.jpg              → sección "El estudio" (arco vertical 4:5)
+     hero.jpg               → foto pequeña de "El estudio" y paso 01 del proceso
+     machine.jpg            → foto que crece a pantalla completa (horizontal)
+     gallery-1.jpg          → portfolio, manifiesto y paso 03 del proceso
+     service-tradicional.jpg→ portfolio y foto de "Tradicional" en servicios
+   Las mismas fotos se repiten en la banda en movimiento de debajo de la
+   portada. Si cambias una, cambia de golpe en todos los sitios.
+   Los textos de cada pieza del portfolio (estilo + descripción) están en
+   index.html, dentro de <figcaption> y en el atributo data-caption.
    Cuando las fotos sean propias, borra el enlace "Créditos fotográficos"
    del pie de index.html y el archivo creditos.html.
 

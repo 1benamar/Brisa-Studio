@@ -17,17 +17,18 @@
   <meta property="og:image" content="assets/img/hero.jpg" />
 
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
-  <link rel="preload" as="image" href="assets/img/hero.jpg" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/img/gallery-7.jpg" fetchpriority="high" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" />
 
-  <link rel="stylesheet" href="styles.css?v=20260917-4" />
+  <link rel="stylesheet" href="styles.css?v=20260919-5" />
 
   <!-- "js": hay JavaScript. "intro": oculta la portada hasta que arranca la
-       animación de entrada (con red de seguridad en CSS si el JS fallara). -->
-  <script>document.documentElement.classList.add("js", "intro");</script>
+       animación de entrada (con red de seguridad en CSS si el JS fallara).
+       "page-enter": se llega desde otra página de la web y se levanta la cortinilla. -->
+  <script>(function(h){h.classList.add("js","intro");try{if(sessionStorage.getItem("brisa:nav")){sessionStorage.removeItem("brisa:nav");h.classList.add("page-enter")}}catch(e){}})(document.documentElement);</script>
 
   <!-- Ficha de negocio local para Google. Añade "url" con el dominio al publicar. -->
   <script type="application/ld+json">
@@ -95,10 +96,23 @@
     </div>
   </div>
 
+  <!-- Cortinilla entre páginas -->
+  <div class="page-curtain" aria-hidden="true">
+    <svg class="mark" viewBox="0 0 120 150" fill="none">
+      <path d="M60 22c-9 4-13.5 12-9.5 19.5C54 48.5 62 50.5 65 47c3-3.5.5-9.5-4.5-11" />
+      <path d="M60 22c9 4 13.5 12 9.5 19.5C66 48.5 58 50.5 55 47c-3-3.5-.5-9.5 4.5-11" />
+      <path d="M43 33c-8 7-9 18-2 25 5 5 13 5 16 1" />
+      <path d="M77 33c8 7 9 18 2 25-5 5-13 5-16 1" />
+      <path d="M60 60v70" />
+      <path d="M60 84c-7-6-16-6-22-1 4 8 14 11 22 6" />
+      <path d="M60 102c7-6 16-6 22-1-4 8-14 11-22 6" />
+    </svg>
+  </div>
+
   <!-- Cursor -->
   <div class="cursor" data-cursor-root aria-hidden="true">
     <span class="cursor-ink"></span>
-    <span class="cursor-ring"></span>
+    <span class="cursor-ring"><span class="cursor-label" data-cursor-label></span></span>
     <span class="cursor-machine">
       <span class="cursor-machine-inner">
         <svg viewBox="0 0 48 96" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -151,12 +165,12 @@
   <!-- Menú móvil -->
   <div class="nav-mobile" id="menu-movil" data-mobile-menu aria-hidden="true">
     <nav aria-label="Navegación móvil">
-      <a href="#estudio">Estudio</a>
-      <a href="#servicios">Servicios</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#artistas">Artistas</a>
-      <a href="#proceso">Proceso</a>
-      <a href="#contacto">Reservar cita</a>
+      <a href="#estudio" style="--i: 0">Estudio</a>
+      <a href="#servicios" style="--i: 1">Servicios</a>
+      <a href="#portfolio" style="--i: 2">Portfolio</a>
+      <a href="#artistas" style="--i: 3">Artistas</a>
+      <a href="#proceso" style="--i: 4">Proceso</a>
+      <a href="#contacto" style="--i: 5">Reservar cita</a>
     </nav>
     <div class="nav-mobile-foot">
       <a href="https://www.instagram.com/brisa.tattoostudio" target="_blank" rel="noopener">@brisa.tattoostudio</a>
@@ -167,96 +181,148 @@
   <main id="main">
 
     <!-- ============ HERO ============ -->
-    <section class="hero" id="inicio">
-      <div class="hero-bg">
-        <img src="assets/img/hero.jpg" alt="Manos colocando el diseño de un tatuaje sobre la piel" fetchpriority="high" loading="eager" />
-        <div class="hero-bg-tint" aria-hidden="true"></div>
+    <section class="hero" id="inicio" data-hero data-depth-scope>
+      <div class="hero-aurora" aria-hidden="true">
+        <div class="hero-aurora-inner" data-depth="-26"><span></span><span></span><span></span></div>
       </div>
-      <div class="hero-mesh" aria-hidden="true"></div>
+      <div class="hero-watermark" aria-hidden="true"><span data-depth="-12">Brisa</span></div>
+      <canvas class="hero-ink" aria-hidden="true" data-hero-ink></canvas>
       <div class="hero-grain" aria-hidden="true"></div>
 
-      <div class="hero-inner">
-        <p class="kicker" data-intro>Estudio de tatuaje · Girona</p>
+      <a class="hero-rail hero-rail-right" href="https://www.instagram.com/brisa.tattoostudio" target="_blank" rel="noopener" data-intro>
+        <span>Instagram</span><i></i><span>@brisa.tattoostudio</span>
+      </a>
 
-        <svg class="mark mark-hero" viewBox="0 0 120 150" fill="none" aria-hidden="true" data-draw="intro">
-          <path d="M60 22c-9 4-13.5 12-9.5 19.5C54 48.5 62 50.5 65 47c3-3.5.5-9.5-4.5-11" />
-          <path d="M60 22c9 4 13.5 12 9.5 19.5C66 48.5 58 50.5 55 47c-3-3.5-.5-9.5 4.5-11" />
-          <path d="M43 33c-8 7-9 18-2 25 5 5 13 5 16 1" />
-          <path d="M77 33c8 7 9 18 2 25-5 5-13 5-16 1" />
-          <path d="M60 60v70" />
-          <path d="M60 84c-7-6-16-6-22-1 4 8 14 11 22 6" />
-          <path d="M60 102c7-6 16-6 22-1-4 8-14 11-22 6" />
-        </svg>
-
-        <h1 class="hero-title" data-split="hero" data-intro>
-          Cada piel es un lienzo distinto.<br />
-          <em>Cada trazo, una decisión.</em>
-        </h1>
-
-        <p class="hero-sub" data-intro>
-          Tatuaje, piercing y micropigmentación en el centro de Girona. Diseño propio,
-          material certificado y un espacio tranquilo.
-        </p>
-
-        <div class="hero-foot">
-          <p class="hero-meta" data-intro>
+      <div class="container hero-grid">
+        <div class="hero-copy" data-hero-copy>
+          <p class="hero-pill" data-intro>
             <span class="hero-dot" data-open-dot aria-hidden="true"></span>
-            Carrer Dr. Antic Roca, 20 · Lunes a sábado, 11:00–19:00
+            <span data-open-pill>Estudio de tatuaje</span>
+            <span class="hero-pill-sep" aria-hidden="true"></span>
+            <span>Girona</span>
           </p>
+
+          <h1 class="hero-title" data-split="hero" data-intro>
+            Cada piel es un lienzo distinto.<br />
+            <em>Cada trazo, una decisión.</em>
+          </h1>
+
+          <p class="hero-sub" data-intro>
+            Tatuaje, piercing y micropigmentación en el centro de Girona. Diseño propio,
+            material certificado y un espacio tranquilo.
+          </p>
+
           <div class="hero-actions" data-intro>
             <a class="btn btn-primary" href="#contacto" data-magnetic="0.3">Reservar cita</a>
             <a class="btn btn-ghost" href="#portfolio" data-magnetic="0.3">Ver portfolio</a>
           </div>
+
+          <ul class="hero-meta" data-intro>
+            <li><strong>Tres artistas</strong><span>Laura, Paula y Sofia</span></li>
+            <li><strong>Diseño propio</strong><span>Cada pieza, una sola vez</span></li>
+            <li><strong>Lunes a sábado</strong><span>De 11:00 a 19:00</span></li>
+          </ul>
+        </div>
+
+        <div class="hero-visual" data-hero-visual>
+          <div class="hero-stage">
+            <div class="hero-layer hero-main" data-depth="12">
+              <span class="hero-orbit" aria-hidden="true"><i></i><i></i></span>
+              <div class="hero-arch" data-slides data-cursor="Siguiente" role="group" aria-roledescription="carrusel" aria-label="Piezas del estudio">
+                <img class="hero-slide is-active" src="assets/img/gallery-7.jpg" alt="Tatuaje de espalda completa con linework en negro" data-name="Blackwork" width="776" height="1000" fetchpriority="high" />
+                <img class="hero-slide" src="assets/img/gallery-2.jpg" alt="Brazo tatuado completo con motivos florales en color" data-name="Color floral" width="791" height="1024" />
+                <img class="hero-slide" src="assets/img/gallery-8.jpg" alt="Pierna tatuada al completo en estilo tradicional a color" data-name="Tradicional" width="819" height="1023" />
+                <img class="hero-slide" src="assets/img/realismo.jpg" alt="Espalda tatuada en realismo, en negro y grises" data-name="Realismo" width="768" height="1024" style="object-position: 50% 58%" />
+                <p class="hero-caption" aria-live="polite">
+                  <span class="hc-num">01</span>
+                  <span class="hc-name-wrap"><span class="hc-name">Blackwork</span></span>
+                </p>
+              </div>
+            </div>
+
+            <div class="hero-layer hero-float" data-depth="30">
+              <div class="hero-bob"><img src="assets/img/gallery-4.jpg" alt="Boceto de rosa dibujado a mano para tatuaje" /></div>
+            </div>
+
+            <div class="hero-layer hero-badge" data-depth="44" aria-hidden="true">
+              <svg class="hero-badge-ring" viewBox="0 0 100 100">
+                <defs><path id="badge-circle" d="M50 50m-38 0a38 38 0 1 1 76 0a38 38 0 1 1-76 0" /></defs>
+                <text><textPath href="#badge-circle" textLength="238" lengthAdjust="spacing">Brisa Tattoo Studio · Girona · Diseño propio ·</textPath></text>
+              </svg>
+              <svg class="mark hero-badge-mark" viewBox="0 0 120 150" fill="none"><use href="#rose" /></svg>
+            </div>
+          </div>
+
+          <div class="hero-thumbs" role="group" aria-label="Elegir pieza">
+            <button class="hero-thumb is-active" type="button" aria-label="Ver Blackwork" aria-pressed="true"><img src="assets/img/gallery-7.jpg" alt="" /><i></i></button>
+            <button class="hero-thumb" type="button" aria-label="Ver Color floral" aria-pressed="false"><img src="assets/img/gallery-2.jpg" alt="" /><i></i></button>
+            <button class="hero-thumb" type="button" aria-label="Ver Tradicional" aria-pressed="false"><img src="assets/img/gallery-8.jpg" alt="" /><i></i></button>
+            <button class="hero-thumb" type="button" aria-label="Ver Realismo" aria-pressed="false"><img src="assets/img/realismo.jpg" alt="" style="object-position: 50% 58%" /><i></i></button>
+          </div>
         </div>
       </div>
 
-      <a class="hero-scroll" href="#estudio" aria-label="Bajar a la siguiente sección">
-        <span></span>
+      <a class="hero-scroll" href="#estudio" data-intro>
+        <span>Descubre</span><i></i>
       </a>
     </section>
 
     <!-- ============ BANDA TIPOGRÁFICA ============ -->
     <div class="marquee-band" data-marquee-band aria-hidden="true">
-      <div class="marquee-row">
+      <div class="marquee-row marquee-row-media">
         <div class="marquee-track">
-          <span>Realismo</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Blackwork</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Fine line</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Tradicional</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Piercing</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Micropigmentación</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Eliminación láser</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-img"><img src="assets/img/gallery-7.jpg" alt="" loading="lazy" decoding="async" /></span>
+          <span class="mq-word">Blackwork</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-img"><img src="assets/img/gallery-1.jpg" alt="" loading="lazy" decoding="async" /></span>
+          <span class="mq-word">Fine line</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-img"><img src="assets/img/service-tradicional.jpg" alt="" loading="lazy" decoding="async" /></span>
+          <span class="mq-word">Tradicional</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-img"><img src="assets/img/realismo.jpg" alt="" loading="lazy" decoding="async" /></span>
+          <span class="mq-word">Realismo</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-img"><img src="assets/img/machine.jpg" alt="" loading="lazy" decoding="async" /></span>
+          <span class="mq-word">Piercing</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-img"><img src="assets/img/gallery-2.jpg" alt="" loading="lazy" decoding="async" /></span>
+          <span class="mq-word">Micropigmentación</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-img"><img src="assets/img/about.jpg" alt="" loading="lazy" decoding="async" /></span>
+          <span class="mq-word">Eliminación láser</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
         </div>
         <div class="marquee-track">
-          <span>Realismo</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Blackwork</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Fine line</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Tradicional</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Piercing</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Micropigmentación</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Eliminación láser</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-img"><img src="assets/img/gallery-7.jpg" alt="" loading="lazy" decoding="async" /></span>
+          <span class="mq-word">Blackwork</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-img"><img src="assets/img/gallery-1.jpg" alt="" loading="lazy" decoding="async" /></span>
+          <span class="mq-word">Fine line</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-img"><img src="assets/img/service-tradicional.jpg" alt="" loading="lazy" decoding="async" /></span>
+          <span class="mq-word">Tradicional</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-img"><img src="assets/img/realismo.jpg" alt="" loading="lazy" decoding="async" /></span>
+          <span class="mq-word">Realismo</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-img"><img src="assets/img/machine.jpg" alt="" loading="lazy" decoding="async" /></span>
+          <span class="mq-word">Piercing</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-img"><img src="assets/img/gallery-2.jpg" alt="" loading="lazy" decoding="async" /></span>
+          <span class="mq-word">Micropigmentación</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-img"><img src="assets/img/about.jpg" alt="" loading="lazy" decoding="async" /></span>
+          <span class="mq-word">Eliminación láser</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
         </div>
       </div>
       <div class="marquee-row marquee-row-rev">
         <div class="marquee-track">
-          <span>Diseño propio</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Cita previa</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Material estéril</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Girona</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Diseño propio</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Cita previa</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Material estéril</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Girona</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-word">Diseño propio</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-word">Cita previa</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-word">Material estéril</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-word">Girona</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-word">Diseño propio</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-word">Cita previa</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-word">Material estéril</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-word">Girona</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
         </div>
         <div class="marquee-track">
-          <span>Diseño propio</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Cita previa</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Material estéril</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Girona</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Diseño propio</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Cita previa</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Material estéril</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
-          <span>Girona</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-word">Diseño propio</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-word">Cita previa</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-word">Material estéril</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-word">Girona</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-word">Diseño propio</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-word">Cita previa</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-word">Material estéril</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
+          <span class="mq-word">Girona</span><svg viewBox="0 0 120 150"><use href="#rose" /></svg>
         </div>
       </div>
     </div>
@@ -271,27 +337,47 @@
           </h2>
         </header>
 
-        <div class="about-lead" data-reveal>
-          <p>
-            Brisa nació con una idea sencilla: que tatuarse no tenga nada de intimidante.
-            Trabajamos con cita cerrada y una sola persona por sesión, así que el estudio
-            nunca va lleno ni con ruido de fondo.
-          </p>
-          <p>
-            Antes de coger la máquina hablamos: qué te gusta, qué no, qué zona del cuerpo y
-            cómo va a envejecer el diseño con los años. El boceto se dibuja para ti y no se
-            repite en nadie más.
-          </p>
+        <div class="about-split">
+          <div class="about-media">
+            <figure class="about-figure" data-reveal="mask">
+              <img src="assets/img/about.jpg" alt="Manos con guantes tatuando un antebrazo con el estencil aún visible" loading="lazy" decoding="async" />
+            </figure>
+            <div class="about-sub" data-parallax="0.12">
+              <img src="assets/img/hero.jpg" alt="Manos colocando el diseño de un tatuaje sobre la piel" loading="lazy" decoding="async" />
+            </div>
+            <p class="about-tag">
+              <svg class="mark" viewBox="0 0 120 150" fill="none" aria-hidden="true"><use href="#rose" /></svg>
+              Guantes nuevos, agujas nuevas y el estencil revisado antes de la primera línea.
+            </p>
+          </div>
+
+          <div class="about-body">
+            <div class="about-lead" data-reveal>
+              <p>
+                Brisa nació con una idea sencilla: que tatuarse no tenga nada de intimidante.
+                Trabajamos con cita cerrada y una sola persona por sesión, así que el estudio
+                nunca va lleno ni con ruido de fondo.
+              </p>
+              <p>
+                Antes de coger la máquina hablamos: qué te gusta, qué no, qué zona del cuerpo y
+                cómo va a envejecer el diseño con los años. El boceto se dibuja para ti y no se
+                repite en nadie más.
+              </p>
+            </div>
+            <ul class="about-checks" data-reveal>
+              <li>Una sola persona por sesión, con cita cerrada</li>
+              <li>Boceto dibujado para ti, que no se repite</li>
+              <li>Material de un solo uso, abierto delante de ti</li>
+              <li>Seguimiento de la cicatrización hasta la revisión</li>
+            </ul>
+          </div>
         </div>
 
-        <figure class="about-figure" data-reveal="mask">
-          <img src="assets/img/about.jpg" alt="Manos con guantes tatuando un antebrazo con el estencil aún visible" loading="lazy" decoding="async" />
-          <figcaption>Guantes nuevos, agujas nuevas y el estencil revisado antes de la primera línea.</figcaption>
-        </figure>
-
         <p class="manifesto" data-manifesto>
-          No hacemos tatuajes en serie. Cada pieza se dibuja para una sola piel, se habla
-          antes de empezar y se acompaña hasta que está curada.
+          No hacemos tatuajes en serie. <span class="mf-img" data-keep aria-hidden="true"><img src="assets/img/gallery-4.jpg" alt="" loading="lazy" decoding="async" /></span>
+          Cada pieza se dibuja para una sola piel, se habla antes de empezar
+          <span class="mf-img" data-keep aria-hidden="true"><img src="assets/img/gallery-1.jpg" alt="" loading="lazy" decoding="async" /></span>
+          y se acompaña hasta que está curada.
         </p>
 
         <div class="pillars">
@@ -400,55 +486,93 @@
             </a>
           </li>
         </ol>
+
+        <!-- Foto que sigue al ratón por la lista (sólo escritorio) -->
+        <div class="svc-float" data-svc-float aria-hidden="true">
+          <div class="svc-float-inner">
+            <img src="assets/img/realismo.jpg" alt="" loading="lazy" decoding="async" style="object-position: 50% 58%" />
+            <img src="assets/img/gallery-7.jpg" alt="" loading="lazy" decoding="async" />
+            <img src="assets/img/gallery-1.jpg" alt="" loading="lazy" decoding="async" />
+            <img src="assets/img/service-tradicional.jpg" alt="" loading="lazy" decoding="async" />
+            <span class="svc-float-card"><svg class="mark" viewBox="0 0 120 150" fill="none"><use href="#rose" /></svg><em>Piercing</em><small>Titanio implantable</small></span>
+            <span class="svc-float-card"><svg class="mark" viewBox="0 0 120 150" fill="none"><use href="#rose" /></svg><em>Micropigmentación</em><small>Retoque incluido</small></span>
+            <span class="svc-float-card"><svg class="mark" viewBox="0 0 120 150" fill="none"><use href="#rose" /></svg><em>Láser</em><small>Valoración gratuita</small></span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- ============ PORTFOLIO ============ -->
-    <section class="section section-portfolio" id="portfolio">
-      <div class="container">
-        <header class="section-head" data-reveal>
-          <p class="kicker">03 · Portfolio</p>
-          <h2 class="section-title" data-split>Piezas recientes <em>del estudio</em>.</h2>
-          <p class="section-intro">
-            Una selección de estilos. En Instagram publicamos el trabajo del día a día,
-            incluidos los procesos y los diseños disponibles.
-          </p>
-        </header>
-      </div>
+    <!-- ============ PORTFOLIO (galería horizontal) ============ -->
+    <section class="section-portfolio hscroll" id="portfolio" data-hscroll>
+      <div class="hscroll-sticky">
+        <div class="container hscroll-head">
+          <header class="section-head" data-reveal>
+            <p class="kicker">03 · Portfolio</p>
+            <h2 class="section-title" data-split>Piezas recientes <em>del estudio</em>.</h2>
+          </header>
+          <div class="hscroll-meta" data-reveal>
+            <p class="hscroll-hint">
+              <span class="hscroll-hint-desk">Sigue bajando</span><span class="hscroll-hint-touch">Desliza</span>
+              <span aria-hidden="true">→</span>
+            </p>
+            <span class="hscroll-bar" aria-hidden="true"><i data-hscroll-bar></i></span>
+          </div>
+        </div>
 
-      <div class="gallery" data-gallery>
-        <figure class="gallery-item gallery-tall" data-reveal="mask">
-          <img src="assets/img/gallery-7.jpg" alt="Tatuaje de espalda completa con linework en negro" loading="lazy" decoding="async" />
-          <figcaption><span>Blackwork</span> Espalda completa, linework</figcaption>
-        </figure>
-        <figure class="gallery-item gallery-tall" data-reveal="mask">
-          <img src="assets/img/gallery-8.jpg" alt="Pierna tatuada al completo en estilo tradicional a color" loading="lazy" decoding="async" />
-          <figcaption><span>Tradicional</span> Pierna completa en color</figcaption>
-        </figure>
-        <figure class="gallery-item" data-reveal="mask">
-          <img src="assets/img/gallery-1.jpg" alt="Tatuaje floral pequeño en el pie" loading="lazy" decoding="async" />
-          <figcaption><span>Color</span> Floral en el pie</figcaption>
-        </figure>
-        <figure class="gallery-item gallery-ink" data-reveal="mask">
-          <img src="assets/img/gallery-4.jpg" alt="Boceto de rosa dibujado a mano para tatuaje" loading="lazy" decoding="async" />
-          <figcaption><span>Diseño</span> Boceto a mano</figcaption>
-        </figure>
-        <figure class="gallery-item gallery-wide" data-reveal="mask">
-          <img src="assets/img/gallery-2.jpg" alt="Brazo tatuado completo con motivos florales en color" loading="lazy" decoding="async" />
-          <figcaption><span>Color</span> Brazo completo floral</figcaption>
-        </figure>
-        <figure class="gallery-item" data-reveal="mask">
-          <img src="assets/img/service-tradicional.jpg" alt="Láminas de flash tradicional enmarcadas en el estudio" loading="lazy" decoding="async" />
-          <figcaption><span>Flash</span> Láminas del estudio</figcaption>
-        </figure>
+        <div class="hscroll-viewport" data-reveal>
+          <div class="hscroll-track" data-hscroll-track>
+            <figure class="hcard gallery-item" data-cursor="Ver" data-caption="Blackwork · Espalda completa, linework">
+              <div class="hcard-media hcard-arch"><div class="hcard-img"><img src="assets/img/gallery-7.jpg" alt="Tatuaje de espalda completa con linework en negro" loading="lazy" decoding="async" /></div></div>
+              <figcaption><span class="hcard-num">01</span><span class="hcard-tag">Blackwork</span><span class="hcard-name">Espalda completa, linework</span></figcaption>
+            </figure>
+            <figure class="hcard hcard-wide gallery-item" data-cursor="Ver" data-caption="Color · Brazo completo floral">
+              <div class="hcard-media"><div class="hcard-img"><img src="assets/img/gallery-2.jpg" alt="Brazo tatuado completo con motivos florales en color" loading="lazy" decoding="async" /></div></div>
+              <figcaption><span class="hcard-num">02</span><span class="hcard-tag">Color</span><span class="hcard-name">Brazo completo floral</span></figcaption>
+            </figure>
+            <figure class="hcard gallery-item" data-cursor="Ver" data-caption="Realismo · Espalda en negro y grises">
+              <div class="hcard-media hcard-arch"><div class="hcard-img"><img src="assets/img/realismo.jpg" alt="Espalda tatuada en realismo, en negro y grises" loading="lazy" decoding="async" style="object-position: 50% 58%" /></div></div>
+              <figcaption><span class="hcard-num">03</span><span class="hcard-tag">Realismo</span><span class="hcard-name">Espalda en negro y grises</span></figcaption>
+            </figure>
+            <figure class="hcard hcard-wide gallery-item" data-cursor="Ver" data-caption="Tradicional · Pierna completa en color">
+              <div class="hcard-media"><div class="hcard-img"><img src="assets/img/gallery-8.jpg" alt="Pierna tatuada al completo en estilo tradicional a color" loading="lazy" decoding="async" /></div></div>
+              <figcaption><span class="hcard-num">04</span><span class="hcard-tag">Tradicional</span><span class="hcard-name">Pierna completa en color</span></figcaption>
+            </figure>
+            <figure class="hcard gallery-item" data-cursor="Ver" data-caption="Color · Floral en el pie">
+              <div class="hcard-media hcard-arch"><div class="hcard-img"><img src="assets/img/gallery-1.jpg" alt="Tatuaje floral pequeño en el pie" loading="lazy" decoding="async" /></div></div>
+              <figcaption><span class="hcard-num">05</span><span class="hcard-tag">Color</span><span class="hcard-name">Floral en el pie</span></figcaption>
+            </figure>
+            <figure class="hcard hcard-wide gallery-item gallery-ink" data-cursor="Ver" data-caption="Diseño · Boceto a mano">
+              <div class="hcard-media"><div class="hcard-img"><img src="assets/img/gallery-4.jpg" alt="Boceto de rosa dibujado a mano para tatuaje" loading="lazy" decoding="async" /></div></div>
+              <figcaption><span class="hcard-num">06</span><span class="hcard-tag">Diseño</span><span class="hcard-name">Boceto a mano</span></figcaption>
+            </figure>
+            <figure class="hcard gallery-item" data-cursor="Ver" data-caption="Flash · Láminas del estudio">
+              <div class="hcard-media hcard-arch"><div class="hcard-img"><img src="assets/img/service-tradicional.jpg" alt="Láminas de flash tradicional enmarcadas en el estudio" loading="lazy" decoding="async" /></div></div>
+              <figcaption><span class="hcard-num">07</span><span class="hcard-tag">Flash</span><span class="hcard-name">Láminas del estudio</span></figcaption>
+            </figure>
+            <div class="hcard hcard-end">
+              <svg class="mark hcard-end-mark" viewBox="0 0 120 150" fill="none" aria-hidden="true"><use href="#rose" /></svg>
+              <p class="kicker">A tu medida</p>
+              <p class="hcard-end-title">¿Y si dibujamos <em>la tuya</em>?</p>
+              <a class="btn btn-primary" href="#contacto" data-magnetic="0.3">Reservar cita</a>
+              <a class="link-underline hcard-end-ig" href="https://www.instagram.com/brisa.tattoostudio" target="_blank" rel="noopener">Todo el trabajo en @brisa.tattoostudio ↗</a>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="container">
-        <p class="gallery-cta" data-reveal>
-          <a class="link-underline" href="https://www.instagram.com/brisa.tattoostudio" target="_blank" rel="noopener">
-            Ver todo en Instagram · @brisa.tattoostudio ↗
-          </a>
-        </p>
+    <!-- ============ FOTO QUE CRECE ============ -->
+    <section class="zoom-band" data-zoom aria-label="Filosofía del estudio">
+      <div class="zoom-sticky">
+        <div class="zoom-media" data-zoom-media>
+          <img src="assets/img/machine.jpg" alt="Máquina de tatuar de bobinas sobre la mesa de trabajo" loading="lazy" decoding="async" data-zoom-img />
+        </div>
+        <div class="container zoom-text" data-zoom-text>
+          <blockquote class="zoom-quote">
+            <p>Una línea se hace una sola vez.<br /><em>Por eso se piensa tanto.</em></p>
+          </blockquote>
+          <p class="zoom-cite">Brisa Tattoo Studio · Girona</p>
+        </div>
       </div>
     </section>
 
@@ -503,61 +627,60 @@
           <h2 class="section-title" data-split>De la idea a la piel <em>ya curada</em>.</h2>
         </header>
 
-        <div class="steps-wrap" data-steps>
-          <span class="steps-rail" aria-hidden="true"><span class="steps-fill" data-steps-fill></span></span>
-          <ol class="steps">
-            <li class="step" data-reveal>
-              <span class="step-num">01</span>
-              <div class="step-body">
+        <ol class="scards" data-scards>
+          <li class="scard" style="--i: 0">
+            <div class="scard-body">
+              <span class="scard-num">01<small>/04</small></span>
+              <div class="scard-text">
                 <h3>Consulta y boceto</h3>
                 <p>
                   Nos cuentas la idea, el tamaño y la zona. Miramos referencias, hablamos de
                   presupuesto y dibujamos una primera propuesta. Sin compromiso.
                 </p>
               </div>
-            </li>
-            <li class="step" data-reveal>
-              <span class="step-num">02</span>
-              <div class="step-body">
+            </div>
+            <div class="scard-media"><img src="assets/img/hero.jpg" alt="Mano sobre el boceto de un diseño dibujado a mano" loading="lazy" decoding="async" /></div>
+          </li>
+          <li class="scard" style="--i: 1">
+            <div class="scard-body">
+              <span class="scard-num">02<small>/04</small></span>
+              <div class="scard-text">
                 <h3>La sesión</h3>
                 <p>
                   Preparamos la zona, colocamos el estencil y ajustamos lo que haga falta antes
                   de empezar. Material estéril de un solo uso y descansos cuando los pidas.
                 </p>
               </div>
-            </li>
-            <li class="step" data-reveal>
-              <span class="step-num">03</span>
-              <div class="step-body">
+            </div>
+            <div class="scard-media"><img src="assets/img/about.jpg" alt="Manos con guantes tatuando un antebrazo" loading="lazy" decoding="async" /></div>
+          </li>
+          <li class="scard" style="--i: 2">
+            <div class="scard-body">
+              <span class="scard-num">03<small>/04</small></span>
+              <div class="scard-text">
                 <h3>Las dos primeras semanas</h3>
                 <p>
                   Lavado suave con jabón neutro dos veces al día, crema fina, ropa holgada y
                   nada de piscina, playa ni sol directo. Te lo damos por escrito.
                 </p>
               </div>
-            </li>
-            <li class="step" data-reveal>
-              <span class="step-num">04</span>
-              <div class="step-body">
+            </div>
+            <div class="scard-media"><img src="assets/img/gallery-1.jpg" alt="Tatuaje floral pequeño ya curado en el pie" loading="lazy" decoding="async" /></div>
+          </li>
+          <li class="scard" style="--i: 3">
+            <div class="scard-body">
+              <span class="scard-num">04<small>/04</small></span>
+              <div class="scard-text">
                 <h3>Revisión al mes</h3>
                 <p>
                   Cuando la piel está curada la vemos juntas: si algún punto necesita repaso,
                   el primer retoque va incluido.
                 </p>
               </div>
-            </li>
-          </ol>
-        </div>
-
-        <svg class="mark mark-divider" viewBox="0 0 120 150" fill="none" aria-hidden="true" data-draw>
-          <path d="M60 22c-9 4-13.5 12-9.5 19.5C54 48.5 62 50.5 65 47c3-3.5.5-9.5-4.5-11" />
-          <path d="M60 22c9 4 13.5 12 9.5 19.5C66 48.5 58 50.5 55 47c-3-3.5-.5-9.5 4.5-11" />
-          <path d="M43 33c-8 7-9 18-2 25 5 5 13 5 16 1" />
-          <path d="M77 33c8 7 9 18 2 25-5 5-13 5-16 1" />
-          <path d="M60 60v70" />
-          <path d="M60 84c-7-6-16-6-22-1 4 8 14 11 22 6" />
-          <path d="M60 102c7-6 16-6 22-1-4 8-14 11-22 6" />
-        </svg>
+            </div>
+            <div class="scard-media"><img src="assets/img/gallery-2.jpg" alt="Brazo tatuado con motivos florales ya curado" loading="lazy" decoding="async" /></div>
+          </li>
+        </ol>
       </div>
     </section>
 
@@ -592,6 +715,34 @@
             <figcaption>Nuria G. <span>· Figueres</span></figcaption>
           </figure>
         </div>
+      </div>
+    </section>
+
+    <!-- ============ LLAMADA FINAL ============ -->
+    <section class="big-cta" data-depth-scope>
+      <div class="big-cta-photo big-cta-photo-a" data-depth="34" aria-hidden="true">
+        <img src="assets/img/gallery-8.jpg" alt="" loading="lazy" decoding="async" />
+      </div>
+      <div class="big-cta-photo big-cta-photo-b" data-depth="-26" aria-hidden="true">
+        <img src="assets/img/gallery-4.jpg" alt="" loading="lazy" decoding="async" />
+      </div>
+      <div class="container big-cta-inner">
+        <p class="kicker" data-reveal>Con cita previa</p>
+        <h2 class="big-cta-title" data-split>Tu próxima pieza empieza <em>con una conversación</em>.</h2>
+        <p class="big-cta-sub" data-reveal>
+          Cuéntanos la idea, la zona y el tamaño. Te contestamos con una propuesta y un
+          presupuesto orientativo.
+        </p>
+        <a class="round-btn" href="#contacto" data-magnetic="0.4" data-cursor="Reservar" data-reveal>
+          <svg class="round-btn-ring" viewBox="0 0 100 100" aria-hidden="true">
+            <defs><path id="round-btn-circle" d="M50 50m-40 0a40 40 0 1 1 80 0a40 40 0 1 1-80 0" /></defs>
+            <text><textPath href="#round-btn-circle" textLength="250" lengthAdjust="spacing">Reservar cita · Brisa Tattoo Studio ·</textPath></text>
+          </svg>
+          <span class="round-btn-core" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </span>
+          <span class="sr-only">Reservar cita</span>
+        </a>
       </div>
     </section>
 
@@ -791,7 +942,7 @@
 
   <script defer src="lib/gsap.min.js"></script>
   <script defer src="lib/ScrollTrigger.min.js"></script>
-  <script defer src="lib/manifest.js?v=20260917-4"></script>
-  <script defer src="main.js?v=20260917-4"></script>
+  <script defer src="lib/manifest.js?v=20260919-5"></script>
+  <script defer src="main.js?v=20260919-5"></script>
 </body>
 </html>

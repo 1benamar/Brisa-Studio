@@ -86,5 +86,27 @@
     "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
     "foreign_landing_url": "https://www.flickr.com/photos/145856291@N08/52386040660",
     "source": "flickr"
+  },
+  "machine": {
+    "src": "assets/img/machine.jpg",
+    "title": "Tattoo machines",
+    "creator": "Frenkieb",
+    "creator_url": "https://www.flickr.com/photos/77961177@N00",
+    "license": "by",
+    "license_version": "2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "foreign_landing_url": "https://www.flickr.com/photos/77961177@N00/5882562",
+    "source": "flickr"
+  },
+  "realismo": {
+    "src": "assets/img/realismo.jpg",
+    "title": "14th tattoo session",
+    "creator": "ian.mcrob",
+    "creator_url": "https://www.flickr.com/photos/64063094@N00",
+    "license": "by",
+    "license_version": "2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "foreign_landing_url": "https://www.flickr.com/photos/64063094@N00/1841095430",
+    "source": "flickr"
   }
 }
